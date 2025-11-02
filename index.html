@@ -3,7 +3,7 @@ import datetime
 import html
 
 # =========================
-# 기본 설정
+# 기본 페이지 설정
 # =========================
 st.set_page_config(
     page_title="EOERWAY AI Therapy | 감정 케어 AI 친구",
@@ -12,13 +12,13 @@ st.set_page_config(
 )
 
 SERVICE_NAME = "EOERWAY AI Therapy"
-SERVICE_EMAIL = "eorway.help@gmail.com"  # 실제 이메일로 바꿔줘도 돼
+SERVICE_EMAIL = "eorway.help@gmail.com"  # 실제 받을 주소로 바꿔도 돼요
 START_YEAR = 2025
 APP_VERSION = "v2.9-review"
 
 
 # =========================
-# 스타일 (CSS)
+# 공통 스타일 (CSS)
 # =========================
 def inject_style():
     custom_css = """
@@ -220,8 +220,42 @@ def inject_style():
         line-height:1.6;
         color:#1a1a1a;
     }
-    .contact-table strong{
+    .contact-table strong {
         color:#2a2a50;
+    }
+
+    /* chatbot bubble styles */
+    .chat-bubble-user {
+        background:#f4f6ff;
+        border:1px solid #dde2ff;
+        border-radius:16px;
+        padding:1rem 1rem;
+        margin-bottom:.5rem;
+        box-shadow:0 12px 32px rgba(0,0,0,0.04);
+        color:#2a2a50;
+        font-size:.95rem;
+        line-height:1.5;
+        white-space:pre-wrap;
+        word-break:break-word;
+    }
+    .chat-bubble-bot {
+        background:#ffffff;
+        border:1px solid #eee;
+        border-radius:16px;
+        padding:1rem 1rem;
+        margin-bottom:.5rem;
+        box-shadow:0 12px 32px rgba(0,0,0,0.04);
+        color:#1a1a33;
+        font-size:.95rem;
+        line-height:1.5;
+        white-space:pre-wrap;
+        word-break:break-word;
+    }
+    .chat-role {
+        font-weight:600;
+        font-size:.8rem;
+        margin-bottom:.4rem;
+        display:block;
     }
     </style>
     """
@@ -235,10 +269,12 @@ def crisis_box():
     st.markdown(
         """
         <div class="disclaimer-box">
-        <strong>지금이 아주 위험하고 긴급한 상황인가요?</strong><br/>
-        생명이나 안전이 당장 걱정되는 상황이라면, 지역의 응급 도움(의료기관, 상담전화 등)부터 먼저 이용해 주세요.<br/>
-        EOERWAY AI Therapy는 감정을 따뜻하게 지지하고 함께 숨 고르게 도와주는 정서 지원 서비스이며,
-        응급 개입이나 의료적 판단을 대신할 수는 없어요.
+            <strong>지금이 아주 위험하고 긴급한 상황인가요?</strong><br/>
+            생명이나 안전이 당장 걱정되는 상황이라면,
+            지역의 응급 도움(의료기관, 상담전화 등)부터 먼저 이용해 주세요.<br/>
+            EOERWAY AI Therapy는 감정을 따뜻하게 지지하고
+            함께 숨 고르게 도와주는 정서 지원 서비스이며,
+            응급 개입이나 의료적 판단을 대신할 수는 없어요.
         </div>
         """,
         unsafe_allow_html=True,
@@ -252,8 +288,7 @@ def ad_block_placeholder(slot_name="Ad Slot"):
             <div><strong>{html.escape(slot_name)}</strong></div>
             <div>여기는 광고가 표시될 수 있는 영역입니다.</div>
             <!--
-            애드센스 예시 (심사용 자리 준비됨)
-
+            (예시) 애드센스 코드 위치
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID"
                     crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
@@ -294,14 +329,13 @@ def footer():
 
 
 # =========================
-# 렌더 함수들
+# 각 페이지 렌더 함수들
 # =========================
 def render_home():
     st.markdown('<div class="main-container" id="home">', unsafe_allow_html=True)
 
     crisis_box()
 
-    # HERO
     st.markdown(
         """
         <div class="hero-box">
@@ -327,7 +361,7 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    # 대화 미리보기
+    # 상담 미리보기
     st.markdown(
         """
         <div id="chat" class="section-card">
@@ -363,7 +397,7 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    # 카드형 리소스 목록
+    # 도움되는 글 섹션
     st.markdown(
         """
         <div class="section-card">
@@ -416,7 +450,7 @@ def render_home():
 
     ad_block_placeholder("홈 화면 중간 광고 영역 예시")
 
-    # 서비스 소개 미리보기
+    # 서비스 소개 요약
     st.markdown(
         f"""
         <div class="section-card" id="about">
@@ -454,7 +488,7 @@ def render_panic():
         """
         <div class="section-card article-body">
             <div class="small-label">응급 안정 루틴</div>
-            <h1>갑자기 숨이 막히고 심장이 너무 빨라질 때  
+            <h1>갑자기 숨이 막히고 심장이 너무 빨라질 때<br/>
             지금 당장 60초 안에 할 수 있는 진정 루틴</h1>
 
             <p>
@@ -492,7 +526,8 @@ def render_panic():
             휴대폰 화면 같은 한 점만 뚫어지게 보지 말고,
             고개를 살짝 들어서 방 전체를 천천히 바라봐요.<br/>
             천장, 벽, 문, 바닥, 내 발…<br/>
-            "나는 지금 안전한 공간 안에 있어"라는 사실을 눈으로 다시 확인시키는 거예요.
+            "나는 지금 안전한 공간 안에 있어"라는 사실을
+            눈으로 다시 확인시키는 거예요.
             </p>
 
             <div class="article-tip-box">
@@ -512,7 +547,7 @@ def render_panic():
 
             <h2>5단계. '나는 지금 잘 버티고 있다' 인정하기</h2>
             <p>
-            방금 1분은 그냥 숨 쉰 시간이 아니에요.  
+            방금 1분은 그냥 숨 쉰 시간이 아니에요.<br/>
             <strong>내가 나를 지켜낸 순간</strong>이에요.<br/>
             "나 진짜 잘 버텼다." 라고 조용히 말해줘요.
             </p>
@@ -547,7 +582,7 @@ def render_money():
         """
         <div class="section-card article-body">
             <div class="small-label">돈 때문에 심장이 조일 때</div>
-            <h1>"나 인생 망했어" 라는 생각이 머리에서 떨어지지 않을 때  
+            <h1>"나 인생 망했어" 라는 생각이 머리에서 떨어지지 않을 때<br/>
             돈 걱정이 뇌와 마음을 어떻게 잠식하는지</h1>
 
             <p>
@@ -651,13 +686,13 @@ def render_burnout():
         """
         <div class="section-card article-body">
             <div class="small-label">에너지 바닥 모드 보호하기</div>
-            <h1>"아무것도 하기 싫고 그냥 다 포기하고 싶어"라는 느낌이 들 때  
+            <h1>"아무것도 하기 싫고 그냥 다 포기하고 싶어"라는 느낌이 들 때<br/>
             오늘 하루만 버티는 초단위 안전 루틴</h1>
 
             <p>
             이건 게으름이 아니에요.<br/>
             몸과 마음이 과열 → 방전 → 과열 → 방전 반복하다가
-            아예 전원 차단 모드로 들어간 거에 가까워요.<br/><br/>
+            아예 전원 차단 모드로 들어간 상태에 가까워요.<br/><br/>
             그래서 "왜 이것도 못 해?"라고 스스로를 혼내면
             더 깊은 무력감만 남아요.
             </p>
@@ -669,13 +704,13 @@ def render_burnout():
             그건 포기가 아니고 회복이에요.
             </p>
 
-            <h2>2. 내 몸을 최소한으로 챙기는 3가지만 확인해요</h2>
+            <h2>2. 내 몸 챙기는 3가지만 확인해요</h2>
             <p>
-            - 물을 조금이라도 마셨는지  
-            - 완전 공복은 아닌지 (한 입이라도 괜찮아요)  
-            - 몸이 너무 춥거나 덥지는 않은지 (양말, 담요 추가 가능?)<br/><br/>
+            - 물을 조금이라도 마셨는지<br/>
+            - 완전 공복은 아닌지 (한 입만이라도 괜찮아요)<br/>
+            - 너무 춥거나 덥진 않은지 (양말, 담요 추가 가능?)<br/><br/>
             이건 "셀프케어 예쁘게 하자"가 아니라,
-            에너지 누수가 더 안 일어나게 막는 응급 조치예요.
+            에너지 누수가 더 안 나가게 막는 응급 조치예요.
             </p>
 
             <div class="article-tip-box">
@@ -684,9 +719,9 @@ def render_burnout():
                 몸에는 실제로 의미가 있어요.
             </div>
 
-            <h2>3. 완전 차단 대신 '아주 작은 연결' 유지</h2>
+            <h2>3. 완전 고립 대신 '아주 작은 연결' 유지</h2>
             <p>
-            완전 고립은 마음을 더 깊게 가라앉힐 수 있어요.<br/>
+            완전 차단은 마음을 더 깊게 가라앉힐 수 있어요.<br/>
             대신 이렇게만 해볼 수 있어요:<br/><br/>
             "오늘 기운이 좀 바닥이라서 조용히 쉬는 중이야. 답 안 해도 돼. 그냥 알려만 둘게."  
             라는 한 줄만 누군가에게 보내기.<br/><br/>
@@ -697,9 +732,9 @@ def render_burnout():
             <h2>4. 잠이 안 와도 그냥 누워있기만 해도 돼요</h2>
             <p>
             "잠 안 자면 내일 망해"라는 압박이 오히려 잠을 더 밀어내요.<br/>
-            우리는 잠드는 건 직접 통제 못 할 때가 많아요.<br/>
-            대신 "눈 감고 조용히 누워있는 시간"은 통제할 수 있어요.<br/><br/>
-            누워만 있어도 몸은 회복 모드로 조금씩 전환돼요.
+            잠드는 건 우리가 직접 컨트롤 못 할 때가 많아요.<br/>
+            대신 "눈 감고 조용히 누워있는 시간"은 내가 컨트롤할 수 있어요.<br/><br/>
+            누워만 있어도 몸은 회복 모드로 천천히 옮겨가요.
             </p>
 
             <div class="article-tip-box">
@@ -728,6 +763,111 @@ def render_burnout():
     )
 
     ad_block_placeholder("버티기 루틴 글 하단 광고 영역 예시")
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+def render_chatbot():
+    """
+    상담 챗봇 페이지.
+    지금은 간단한 로컬 세션형 더미 챗.
+    나중에 OpenAI / 너의 모델 API 연결하면 여기서 호출하면 돼.
+    """
+
+    st.markdown('<div class="main-container" id="chatbot">', unsafe_allow_html=True)
+
+    crisis_box()
+
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="small-label">💬 감정 케어 챗봇 (프리뷰)</div>
+            <h2 style="font-size:1.2rem;line-height:1.45;font-weight:600;color:#1a1a33;margin:.25rem 0 1rem 0;">
+                하고 싶은 말, 그대로 적어도 괜찮아요.  
+                여기선 비난하거나 "그렇게 하면 안 돼"라고 몰아붙이지 않아요.
+            </h2>
+            <div style="font-size:.9rem;line-height:1.5;color:#555;">
+                ※ 이 공간은 정서적 지지를 위한 공간이에요.<br/>
+                ※ 위급한 상황은 반드시 실제 응급 지원(병원/상담전화 등)부터 이용해 주세요.<br/>
+                ※ 대화 내용은 법적 요구에 따라 검토될 수 있어요.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # 세션 스토리지 준비
+    if "messages" not in st.session_state:
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "text": "먼저 와줘서 고마워요. 요즘 마음이 얼마나 무거웠는지, 편하게 그대로 말해도 돼요. 저는 놀라지 않고, 당신 편에서 들을게요."
+            }
+        ]
+
+    # 기존 대화 보여주기
+    chat_container = st.container()
+    with chat_container:
+        for msg in st.session_state.messages:
+            if msg["role"] == "user":
+                st.markdown(
+                    f"""
+                    <div class="chat-bubble-user">
+                        <span class="chat-role" style="color:#2a2a50;">당신</span>
+                        {html.escape(msg["text"]).replace("\\n","<br/>")}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f"""
+                    <div class="chat-bubble-bot">
+                        <span class="chat-role" style="color:#4f3cff;">EOERWAY</span>
+                        {html.escape(msg["text"]).replace("\\n","<br/>")}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+    st.markdown("---")
+
+    # 입력창
+    with st.form(key="chat_input_form", clear_on_submit=True):
+        user_text = st.text_area(
+            "지금 마음, 편하게 적어주세요 (다 적어도 괜찮아요)",
+            height=100,
+            placeholder="예: 솔직히 너무 지쳤어요. 다 내려놓고 싶고요…"
+        )
+        submitted = st.form_submit_button("보내기 💙")
+
+    # 유저가 보냈다면 세션에 추가하고, 봇 답변 만들어주기
+    if submitted and user_text.strip():
+        # 유저 메세지 저장
+        st.session_state.messages.append({
+            "role": "user",
+            "text": user_text.strip()
+        })
+
+        # 임시 상담 답변 (여기 나중에 OpenAI API 연결 가능)
+        # 지금은 너의 서비스 톤 그대로 부드럽게 반응해
+        bot_reply = (
+            "지금 이렇게 솔직한 마음을 적어준 것만으로도 정말 큰 용기예요.\n"
+            "요즘 얼마나 혼자 버티고 있었는지 느껴져서 마음이 아파요.\n"
+            "당신 잘못 아니에요. 너무 오래 긴장한 채로 견디고 있어서 몸과 마음이 지친 거예요.\n"
+            "지금 당장 해결책을 만들 필요까지는 없어요. 우선은 '나 진짜 힘들었다'라는 사실을\n"
+            "안전하게 인정해주는 게 제일 먼저예요. 그 순간부터 조금씩 숨이 돌아오기 시작하거든요."
+        )
+
+        st.session_state.messages.append({
+            "role": "assistant",
+            "text": bot_reply
+        })
+
+        # 바로 다시 그려주기
+        st.rerun()
+
+    ad_block_placeholder("상담 챗봇 하단 광고 영역 예시")
     footer()
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -979,8 +1119,9 @@ def render_terms():
 
 
 # =========================
-# 페이지 선택 UI
+# 실제 페이지 라우팅
 # =========================
+
 inject_style()
 
 page = st.sidebar.radio(
@@ -990,6 +1131,7 @@ page = st.sidebar.radio(
         "마음 응급 진정 가이드",
         "돈 스트레스와 불안",
         "잠 안 오고 다 포기하고 싶을 때",
+        "상담 챗봇 (미리보기)",
         "소개 / About",
         "문의 / Contact",
         "개인정보 처리방침 / Privacy",
@@ -1007,6 +1149,8 @@ elif page == "돈 스트레스와 불안":
     render_money()
 elif page == "잠 안 오고 다 포기하고 싶을 때":
     render_burnout()
+elif page == "상담 챗봇 (미리보기)":
+    render_chatbot()
 elif page == "소개 / About":
     render_about()
 elif page == "문의 / Contact":
