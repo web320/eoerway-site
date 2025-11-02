@@ -3,205 +3,224 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="EOERWAY AI Therapy | 감정 케어 AI 친구 - 마음이 지칠 때, 따뜻한 대화와 위로를 전하는 정서 지원 서비스">
   <title>EOERWAY AI Therapy | 감정 케어 AI 친구</title>
 
-  <!-- ✅ Google AdSense (심사용 위치) -->
+  <!-- ✅ Meta & Google AdSense -->
+  <meta name="description" content="EOERWAY AI Therapy | 감정 케어 AI 친구. 불안, 외로움, 번아웃을 위한 따뜻한 AI 위로 공간.">
+  <meta name="keywords" content="심리상담, AI상담, 감정케어, 우울, 불안, 위로, 마음치유, 정신건강, 힐링, 자존감, 번아웃, 스트레스">
+  <meta name="author" content="EOERWAY AI Therapy">
+  <meta name="robots" content="index, follow">
+  <meta name="google-adsense-account" content="ca-pub-5846666879010880" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5846666879010880"
-          crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
   <style>
-    body {
-      font-family: "Pretendard", "Noto Sans KR", sans-serif;
-      background: linear-gradient(180deg, #f9fbff, #fff);
-      color: #222;
-      margin: 0;
-      padding: 0;
-      line-height: 1.7;
+    * { box-sizing: border-box; }
+    html, body {
+      font-family: -apple-system,BlinkMacSystemFont,Pretendard,"Noto Sans KR",Roboto,sans-serif;
+      background: linear-gradient(135deg, #e8f0ff, #fffafc);
+      margin: 0; padding: 0;
+      color: #1a1a1a;
     }
     header {
-      background: #4b6cff;
-      color: #fff;
-      padding: 2rem;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 10;
+      padding: 1rem 0;
       text-align: center;
     }
     header h1 {
-      font-size: 2rem;
-      margin-bottom: .5rem;
-    }
-    header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    h2 {
+      margin: 0;
+      font-size: 1.6rem;
       color: #1a1a33;
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
     }
-    p {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    .button-box {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    a.button {
-      background: #4b6cff;
-      color: white;
-      padding: 0.9rem 2rem;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 1.1rem;
+    nav { margin-top: .5rem; }
+    nav a {
+      margin: 0 0.75rem;
+      color: #4f6bff;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(75, 108, 255, 0.2);
-      transition: 0.25s ease;
+      text-decoration: none;
+      font-size: .95rem;
     }
-    a.button:hover {
-      background: #364fd4;
+    nav a:hover { text-decoration: underline; }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.96);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+      padding: 2rem 2.5rem 4rem;
     }
-    .ads {
-      border: 2px dashed #ccd2ff;
-      padding: 1.5rem;
-      margin: 2rem 0;
+    section { display: none; animation: fade 0.6s ease; }
+    section.active { display: block; }
+    h2 { color: #1a1a33; font-size: 1.5rem; margin-top: 1.5rem; }
+    h3 { color: #2a2a50; font-size: 1.15rem; margin-top: 1.2rem; }
+    p { line-height: 1.8; color: #33334d; margin-top: .5rem; }
+    ul { line-height: 1.8; color: #333; }
+    .button {
+      display: inline-block;
+      background: linear-gradient(90deg,#4f6bff,#9c6bff);
+      color: white;
+      border-radius: 14px;
+      text-decoration: none;
+      padding: 1rem 1.4rem;
+      margin-top: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 14px 40px rgba(99,73,255,0.35);
+    }
+    .button:hover { opacity: .9; }
+    .ad-slot {
+      background: #fafafa;
+      border: 2px dashed #d0d0d0;
+      border-radius: 16px;
       text-align: center;
-      background: #f9faff;
-      border-radius: 10px;
-      color: #3b4db7;
+      padding: 1rem;
+      font-size: .85rem;
+      color: #555;
+      margin: 2rem 0;
     }
     footer {
-      background: #f0f2f8;
       text-align: center;
       padding: 2rem;
-      font-size: 0.9rem;
-      color: #666;
+      font-size: .85rem;
+      color: #555;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      margin-top: 4rem;
     }
-    footer a {
-      color: #4b6cff;
-      text-decoration: none;
+    @keyframes fade {
+      from {opacity: 0;} to {opacity: 1;}
     }
   </style>
 </head>
-
 <body>
 
 <header>
-  <h1>EOERWAY AI Therapy 💙</h1>
-  <p>감정 케어 AI 친구 — 당신의 마음을 따뜻하게 지켜주는 AI 위로 서비스</p>
+  <h1>💙 EOERWAY AI Therapy</h1>
+  <nav>
+    <a href="#" onclick="showPage(1)">홈</a>
+    <a href="#" onclick="showPage(2)">1페이지</a>
+    <a href="#" onclick="showPage(3)">2페이지</a>
+    <a href="#" onclick="showPage(4)">3페이지</a>
+  </nav>
 </header>
 
-<div class="container">
+<main>
 
-  <section>
-    <h2>💬 마음이 너무 지칠 때, 여기에 기대세요</h2>
+  <!-- ✅ HOME PAGE -->
+  <section id="page1" class="active">
+    <h2>🌿 당신의 마음을 위한 공간</h2>
     <p>
-      EOERWAY AI Therapy는 혼자 감당하기 힘든 순간, 당신의 감정을 따뜻하게 들어주는 AI 기반 정서 지원 서비스입니다.  
-      이 서비스는 의료 진단이나 상담을 대신하지 않으며, 그보다 “나 힘들어요”라는 마음을 가장 먼저 이해해주는 곳이 되고자 합니다.
-    </p>
-    <p>
-      사람은 누구나 버티기 어려운 순간이 있습니다.  
-      EOERWAY는 그 순간 당신이 잠시 숨을 고를 수 있도록 도와주는 ‘감정 휴식 공간’을 제공합니다.  
-      비난하지 않고, 비교하지 않고, 단지 당신의 이야기를 있는 그대로 들어줍니다.
-    </p>
-  </section>
-
-  <div class="ads">
-    <p>📢 여기는 광고가 노출될 영역입니다.<br>
-       (Google AdSense 심사용 예시 블록)</p>
-  </div>
-
-  <section>
-    <h2>🚀 EOERWAY의 목표</h2>
-    <p>
-      우리는 단순한 챗봇이 아니라, 마음의 응급 처치 공간이 되고자 합니다.  
-      눈물이 터질 듯한 순간에도, 조용히 글로 털어놓을 수 있는 공간.  
-      EOERWAY는 그런 안전한 ‘디지털 마음상담 공간’을 만들어갑니다.
-    </p>
-    <p>
-      또, AI 기술이 사람을 대체하는 것이 아니라 보듬을 수 있다는 믿음으로,  
-      따뜻한 언어와 과학적 안정 루틴을 결합해 감정 회복을 돕습니다.
+      EOERWAY AI Therapy는 “지금 너무 힘들어요”라는 말이 안전하게 닿을 수 있는 온라인 쉼터예요.<br/>
+      외롭고 답답한 날, 혼자 울고 싶을 때, 누군가의 판단 없이 조용히 기대도 돼요.<br/>
+      우리는 당신의 감정을 부정하지 않고, 그저 함께 머물러줄 거예요.
     </p>
 
-    <div class="button-box">
-      <a href="https://eoerway.streamlit.app" target="_blank" class="button">💬 AI 상담하러 가기</a>
+    <div class="ad-slot">
+      <strong>광고 영역 (메인 상단)</strong><br>
+      여기에 AdSense 광고가 표시됩니다.
+    </div>
+
+    <p>
+      EOERWAY는 단순한 AI 챗봇이 아니라, 마음 회복의 여정을 함께 걷는 감정 파트너예요.<br/>
+      따뜻한 언어와 심리학적 구조를 결합해, AI가 진심 어린 공감으로 당신의 마음을 받아줘요.<br/>
+      하루에 7회까지 무료 상담이 가능하며, 프리미엄에서는 깊은 대화 기록과 회고 기능을 제공합니다.
+    </p>
+
+    <ul>
+      <li>💬 감정 정리: 나의 감정 패턴을 글로 정리하고 AI와 되돌아보기</li>
+      <li>🌙 진정 루틴: 불안, 분노, 우울 등 각 감정 상황별 루틴 제공</li>
+      <li>☀️ 자기 회복: 자존감 회복, 자기 돌봄 루틴 AI 추천</li>
+    </ul>
+
+    <a href="https://eoerway.streamlit.app" class="button" target="_blank">
+      💬 지금 바로 AI와 대화하기
+    </a>
+
+    <div class="ad-slot">
+      <strong>광고 영역 (홈 중간)</strong><br>
+      여기에 콘텐츠형 광고가 표시될 수 있습니다.
+    </div>
+
+    <h3>✨ EOERWAY 이름의 뜻</h3>
+    <p>
+      EOERWAY는 “Emotion + Overway”의 합성어예요.<br/>
+      감정의 파도를 건너 새로운 길로 나아가는 의미를 담고 있어요.<br/>
+      “당신의 감정(Eo) 위를 천천히 걸어(Way)”라는 뜻처럼,  
+      우리는 당신이 스스로를 다시 안아줄 수 있도록 돕고 싶어요.
+    </p>
+
+    <div class="ad-slot">
+      <strong>광고 영역 (홈 하단)</strong><br>배너 광고가 표시될 수 있습니다.
     </div>
   </section>
 
-  <section>
-    <h2>💡 서비스 구성</h2>
-    <p>EOERWAY는 다음과 같은 기능과 페이지로 구성됩니다:</p>
-    <ul>
-      <li>홈(Home) — 감정 케어 소개 및 마음 안정 가이드</li>
-      <li>AI 상담(챗봇) — 실제 대화를 나누며 감정을 정리할 수 있는 공간</li>
-      <li>About — EOERWAY의 철학과 시작 이야기</li>
-      <li>Contact — 문의 / 피드백</li>
-      <li>Privacy — 개인정보 보호정책</li>
-      <li>Terms — 이용약관 및 법적 안내</li>
-    </ul>
-  </section>
-
-  <div class="ads">
-    <p>📢 중간 광고 영역 (AdSense 삽입 가능)</p>
-  </div>
-
-  <section>
-    <h2>🧭 개인정보 처리방침</h2>
+  <!-- ✅ PAGE 1 : 불안 진정 루틴 -->
+  <section id="page2">
+    <h2>🌸 불안이 폭주할 때, 60초 루틴으로 진정하기</h2>
     <p>
-      EOERWAY는 이용자의 사적인 감정과 어려움을 가장 중요하게 생각합니다.  
-      수집되는 데이터는 익명화되어 감정 패턴 분석 및 품질 개선에만 사용됩니다.  
-      실명, 위치 정보, 연락처 등 개인 신원을 식별할 수 있는 정보는 수집하지 않습니다.
+      갑자기 심장이 쿵쾅거리거나, 손끝이 차가워지고 머리가 하얘질 때가 있어요.<br/>
+      EOERWAY는 그런 순간 당신이 다시 숨을 돌릴 수 있도록 “60초 진정 루틴”을 제안합니다.
     </p>
+
+    <div class="ad-slot">
+      <strong>광고 영역 (루틴 상단)</strong><br>
+      여기에 AdSense 광고가 표시됩니다.
+    </div>
+
+    <h3>1️⃣ 10초 – 몸의 감각으로 돌아오기</h3>
     <p>
-      모든 대화 내용은 사용자의 동의 없이 외부로 공유되지 않습니다.  
-      단, 법적 의무나 생명 위협 상황 발생 시에는 관계기관에 협조할 수 있습니다.
+      의자에 닿은 엉덩이, 발 아래 바닥의 느낌을 천천히 느껴보세요.<br/>
+      “지금 나는 실제 공간 위에 있다”는 감각을 되찾는 것이 첫 걸음이에요.<br/>
+      불안은 ‘미래의 위험’을 착각하는 상태니까요. 몸을 느끼면 지금으로 돌아올 수 있어요.
     </p>
-  </section>
 
-  <section>
-    <h2>📜 이용약관 요약</h2>
+    <h3>2️⃣ 20초 – 호흡으로 안정화</h3>
     <p>
-      EOERWAY는 정서적 지지와 자기돌봄 가이드를 제공하기 위한 감정 케어 서비스입니다.  
-      의료 진단이나 전문상담을 대신하지 않으며, 응급 개입이 필요한 경우 반드시 실제 상담기관을 이용해야 합니다.
+      4초 들이마시고, 2초 머물고, 6초 내쉬는 <strong>4-2-6 호흡</strong>을 해보세요.<br/>
+      이 리듬은 자율신경계를 안정시키고, 뇌에 “지금은 안전하다”는 신호를 보냅니다.<br/>
+      얕게라도 괜찮아요. 중요한 건 천천히, 부드럽게 내쉬는 거예요.
     </p>
+
+    <h3>3️⃣ 30초 – 감정을 있는 그대로 보기</h3>
     <p>
-      서비스 이용자는 비난, 혐오, 폭력적 언어를 사용하지 않아야 하며,  
-      악용 시 서비스 제한이 발생할 수 있습니다.
+      불안을 없애려 하지 말고, 그냥 이름을 붙여주세요.<br/>
+      “지금 나는 무섭구나.”  
+      “지금 나는 통제할 수 없어서 불안하구나.”  
+      이렇게 말하면 감정이 ‘존재를 허락받은’ 상태가 되어 서서히 작아집니다.
     </p>
-  </section>
 
-  <div class="ads">
-    <p>📢 하단 광고 영역 (AdSense 노출 위치)</p>
-  </div>
+    <div class="ad-slot">
+      <strong>광고 영역 (본문 중간)</strong><br>
+      여기에 광고가 표시될 수 있습니다.
+    </div>
 
-  <section>
-    <h2>📧 문의하기</h2>
-    <p>서비스 관련 문의는 아래 이메일로 보내주세요.</p>
-    <p><strong>이메일:</strong> eorway.help@gmail.com</p>
-  </section>
-
-  <section>
-    <h2>🌱 EOERWAY의 약속</h2>
+    <h3>4️⃣ 60초 – 자기 위로의 언어 사용</h3>
     <p>
-      EOERWAY는 사용자의 감정 데이터를 상업적으로 판매하지 않습니다.  
-      AI가 감정을 판단하지 않고, 사람의 언어로 위로를 전합니다.  
-      우리는 기술이 따뜻할 수 있다는 사실을 증명하고자 합니다.
+      “이건 괜찮아질 거야.” 대신 “지금은 힘들지.”라고 말해보세요.<br/>
+      긍정 강요보다 ‘공감 인정’이 훨씬 회복에 도움이 됩니다.<br/>
+      감정을 없애려는 게 아니라, “괜찮아질 때까지 함께 있자”는 태도로 대하세요.
     </p>
+
+    <h3>💬 EOERWAY가 제안하는 문장</h3>
+    <p style="font-style:italic; color:#2a2a50;">
+      “지금 이 순간만큼은 나 자신을 지켜주고 싶어요.”<br/>
+      “완벽하지 않아도, 살아있는 것만으로 대단해요.”<br/>
+      “나는 괜찮지 않아도 괜찮아요.”
+    </p>
+
+    <p>
+      이런 문장은 단순히 ‘좋은 말’이 아니라,  
+      신경학적으로 스트레스 반응을 완화시키는 ‘언어적 진정제’ 역할을 해요.<br/>
+      AI는 이런 패턴을 학습해 당신에게 가장 필요한 언어를 제안합니다.
+    </p>
+
+    <div class="ad-slot">
+      <strong>광고 영역 (루틴 하단)</strong><br>
+      배너형 광고가 표시될 수 있습니다.
+    </div>
+
+    <a href="https://eoerway.streamlit.app" class="button" target="_blank">
+      🌿 EOERWAY에서 내 감정 대화 시작하기
+    </a>
   </section>
-
-</div>
-
-<footer>
-  <p>© 2025 EOERWAY AI Therapy. All rights reserved. | Version v3.2-ads-ready</p>
-  <p><a href="#top">맨 위로 가기 ↑</a></p>
-</footer>
-
-</body>
-</html>
