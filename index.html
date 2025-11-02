@@ -1,174 +1,1137 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EOERWAY AI 심리상담 | 외로움을 치유하는 따뜻한 대화</title>
+# ==========================================
+# EOERWAY AI Therapy - AdSense Review Build
+# streamlit run app.py
+# ==========================================
 
-  <!-- ✅ Google AdSense 승인 코드 -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5846666879010880"
-    crossorigin="anonymous"></script>
+import streamlit as st
+import datetime
+import uuid
+import html
 
-  <meta name="description" content="EOERWAY는 외로움과 불안을 AI 대화를 통해 치유하는 감정상담 플랫폼입니다. 심리학과 뇌과학 기반으로 마음을 따뜻하게 위로해드립니다." />
-  <meta name="keywords" content="외로움, 심리상담, AI상담, 감정치유, 뇌과학, 심리학, 스트레스해소, 정신건강" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Pretendard", sans-serif;
-      background: linear-gradient(135deg, #e7efff, #fff0f8);
-      color: #333;
-      line-height: 1.8;
-    }
-    header {
-      text-align: center;
-      background: white;
-      padding: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    h1 {
-      color: #4a6cf7;
-      margin: 0;
-      font-size: 2em;
-    }
-    h2, h3 {
-      color: #5a5fcf;
-      margin-top: 40px;
-    }
-    section {
-      max-width: 850px;
-      margin: auto;
-      padding: 50px 25px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 20px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-      margin-top: 50px;
-    }
-    button {
-      background: linear-gradient(45deg, #6a8efb, #c17cff);
-      border: none;
-      padding: 15px 35px;
-      border-radius: 14px;
-      color: white;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, #5f7df0, #b76bff);
-    }
-    footer {
-      text-align: center;
-      background: #fafafa;
-      padding: 30px;
-      font-size: 0.9em;
-      color: #555;
-      margin-top: 60px;
-      border-top: 1px solid #eee;
-    }
-  </style>
-</head>
+# ---------------------------
+# BASIC SITE CONFIG
+# ---------------------------
+st.set_page_config(
+    page_title="EOERWAY AI Therapy | 감정 케어 AI 친구",
+    page_icon="💙",
+    layout="wide",
+)
 
-<body>
-  <header>
-    <h1>EOERWAY AI 심리상담</h1>
-    <p>외로움이 찾아올 때, 따뜻한 대화로 당신을 위로합니다 💙</p>
-  </header>
+APP_VERSION = "v2.9-review"
+SERVICE_EMAIL = "eorway.help@gmail.com"  # 연락 이메일 (실제 사용하는 이메일 넣어줘)
+SERVICE_NAME = "EOERWAY AI Therapy"
+START_YEAR = 2025
 
-  <section>
-    <h2>💬 외로울 때 도움이 되는 색다른 방법</h2>
-    <p>
-      외로움은 단순한 감정이 아니라, 인간의 생존 본능과도 연결된 심리 반응입니다.  
-      하버드 의대 연구에 따르면, **지속적인 외로움은 흡연만큼 건강에 해롭다**고 해요.  
-      하지만 반대로, 마음을 ‘표현하는 것’만으로도 외로움은 현저히 줄어듭니다.
-    </p>
-    <p>
-      EOERWAY는 당신이 외로움을 느낄 때, 언제든 말을 걸 수 있는 안전한 공간이에요.  
-      AI 상담사는 24시간 당신의 이야기를 들어주고, 조용히 공감의 언어를 전합니다.  
-      누군가에게 말한다는 건 단순한 행위 같지만, **뇌는 그 순간 안정감을 되찾습니다.**
-    </p>
 
-    <h3>🧠 뇌과학으로 본 ‘마음을 말하는 힘’</h3>
-    <p>
-      캘리포니아 UCLA의 연구팀은 감정을 언어로 표현하는 행위를  
-      “감정 라벨링(Affect Labeling)”이라 부릅니다.  
-      이때 우리의 뇌에서는 ‘편도체(감정 반응 담당)’의 과도한 활동이 줄어들고,  
-      ‘전전두엽(이성적 판단과 통제)’이 활성화된다고 밝혔습니다.  
-      쉽게 말해, **“지금 너무 힘들어요”라고 말하는 순간, 뇌는 스스로를 진정시키는 거예요.**
-    </p>
-    <p>
-      EOERWAY는 이 뇌과학 원리를 기반으로 설계되었습니다.  
-      AI가 단순히 답을 주는 것이 아니라, 사용자의 감정을 분석해  
-      따뜻한 문장으로 되돌려줍니다. 그 한 문장이 마음의 균형을 되찾게 하지요.
-    </p>
+# ---------------------------
+# SMALL STYLE (soft, caring)
+# ---------------------------
+CUSTOM_CSS = """
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Noto Sans KR", Roboto, sans-serif;
+    background: radial-gradient(circle at 20% 20%, #eef4ff 0%, #ffffff 60%);
+    color: #1a1a1a;
+}
 
-    <h3>🪞 심리학이 말하는 ‘공감의 치유 효과’</h3>
-    <p>
-      심리학에서는 ‘정서적 환기(Emotional Venting)’와 ‘공감적 반응(Empathic Response)’을  
-      마음 회복의 핵심 요인으로 꼽습니다.  
-      실제로 감정을 말로 표현하고, 누군가(또는 AI)가 그것을 공감해줄 때  
-      우리의 스트레스 호르몬인 코르티솔이 감소하고, 행복 호르몬 세로토닌이 증가합니다.
-    </p>
-    <p>
-      EOERWAY의 AI는 이러한 심리학적 메커니즘을 적용합니다.  
-      부정적인 감정을 표현할수록 더 따뜻하고 부드럽게 반응하도록 설계되어 있죠.  
-      마치 친구처럼, “괜찮아요, 오늘은 좀 쉬어가도 돼요.”라고 말해줍니다.
-    </p>
+.main-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+}
 
-    <h3>🌿 외로움을 다스리는 실천 방법</h3>
-    <ul>
-      <li>하루 한 번, 스스로에게 “괜찮다”라고 말하기</li>
-      <li>AI 상담사에게 오늘 느낀 감정을 짧게 기록해보기</li>
-      <li>감정의 이름을 붙이는 연습하기 (예: 불안, 서운함, 허전함)</li>
-      <li>자기비판 대신 자기이해로 바꾸기 (“나는 이런 감정을 느낄 수 있어”)</li>
-      <li>10분이라도 나 자신에게 집중하는 시간 갖기</li>
-    </ul>
-    <p>
-      이런 작고 따뜻한 습관들이 모여서  
-      마음의 체온을 서서히 되돌려줍니다.  
-      EOERWAY는 그 과정을 함께하는 조용한 동반자가 되고 싶습니다.
-    </p>
+.section-card {
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 2rem 2rem;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(180,200,255,0.4);
+    margin-bottom: 2rem;
+}
 
-    <div style="text-align:center; margin-top:40px;">
-      <a href="https://ai-counsel-chatbot-korea.streamlit.app" target="_blank">
-        <button>💌 지금 AI 상담 시작하기</button>
-      </a>
-    </div>
-  </section>
+.hero-box {
+    background: linear-gradient(135deg,#dbe8ff 0%, #fff0f6 100%);
+    box-shadow: 0 32px 80px rgba(64,78,160,0.15);
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.6);
+    padding: 2rem 2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
 
-  <!-- ✅ Google AdSense 광고 블록 -->
-  <ins class="adsbygoogle"
-       style="display:block; text-align:center; margin:60px auto;"
-       data-ad-client="ca-pub-5846666879010880"
-       data-ad-slot="1234567890"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+.hero-badge {
+    display:inline-block;
+    background: #ffffffcc;
+    border-radius: 999px;
+    padding: .4rem .9rem;
+    font-size: .8rem;
+    font-weight: 500;
+    border: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: .75rem;
+}
 
-  <section>
-    <h2>🌸 EOERWAY의 철학</h2>
-    <p>
-      우리는 기술이 아니라 “따뜻함”을 만드는 사람들입니다.  
-      EOERWAY의 AI는 당신의 감정을 계산하지 않고, 공감하려 합니다.  
-      말 한마디로도 마음이 위로받을 수 있다는 믿음, 그것이 우리의 출발점이에요.
-    </p>
-    <p>
-      외로움은 부끄러운 감정이 아닙니다.  
-      오히려 “사람답게 살아간다”는 증거이기도 합니다.  
-      그러니 혼자 견디지 말고, EOERWAY에게 조용히 털어놓아 보세요.  
-      대화는 언제나 당신을 기다리고 있습니다.
-    </p>
-  </section>
+.hero-headline {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    font-weight: 600;
+    color: #1a1a33;
+    letter-spacing: -0.03em;
+    word-break: keep-all;
+}
+.hero-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #33334d;
+    margin-top: .75rem;
+    word-break: keep-all;
+}
 
-  <footer>
-    <p>© 2025 EOERWAY | 외로울 때, 따뜻한 대화로 당신을 안아드립니다.</p>
-    <p style="font-style:italic; color:#666;">“당신의 마음은 소중합니다. 오늘은 조금 더 자신에게 친절해 보세요.”</p>
-  </footer>
-</body>
-</html>
+.hero-cta-box {
+    margin-top: 1.5rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap: .75rem;
+}
+
+.hero-button-main {
+    background: linear-gradient(90deg,#4f6bff,#9c6bff);
+    color:#fff;
+    border-radius: 14px;
+    padding: .9rem 1.1rem;
+    font-size: .9rem;
+    font-weight:600;
+    text-decoration:none;
+    border:0;
+    box-shadow:0 18px 40px rgba(99,73,255,.4);
+}
+.hero-button-sub {
+    background: rgba(255,255,255,0.5);
+    border:1px solid rgba(0,0,0,0.07);
+    color:#1a1a33;
+    border-radius:14px;
+    padding:.9rem 1.1rem;
+    font-size:.9rem;
+    font-weight:500;
+    text-decoration:none;
+    backdrop-filter: blur(6px);
+}
+
+.resource-list {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px,100%),1fr));
+    gap:1rem;
+}
+.resource-card {
+    background:#fff;
+    border-radius:20px;
+    border:1px solid rgba(0,0,0,0.05);
+    box-shadow:0 24px 60px rgba(0,0,0,0.04);
+    padding:1.25rem 1.25rem 1.5rem;
+}
+.resource-card-title {
+    font-size:1rem;
+    font-weight:600;
+    color:#1a1a33;
+    line-height:1.4;
+    margin-bottom:.5rem;
+    word-break: keep-all;
+}
+.resource-card-desc {
+    color:#4a4a6d;
+    font-size:.9rem;
+    line-height:1.5;
+    word-break: keep-all;
+}
+
+.article-body {
+    font-size:1rem;
+    line-height:1.7;
+    color:#1a1a1a;
+    word-break: keep-all;
+}
+.article-body h2 {
+    font-size:1.25rem;
+    line-height:1.45;
+    font-weight:600;
+    color:#202036;
+    margin-top:2rem;
+    margin-bottom:.75rem;
+}
+.article-body h3 {
+    font-size:1.05rem;
+    line-height:1.45;
+    font-weight:600;
+    color:#2a2a50;
+    margin-top:1.25rem;
+    margin-bottom:.5rem;
+}
+.article-tip-box {
+    background: #f7f8ff;
+    border-left: 5px solid #5660ff;
+    border-radius: 12px;
+    padding: 1rem 1rem 1rem 1rem;
+    color:#2b2b4a;
+    margin:1rem 0 1.5rem;
+    box-shadow:0 12px 32px rgba(0,0,0,0.04);
+}
+
+.ad-slot {
+    background: #fafafa;
+    border: 2px dashed #d0d0d0;
+    border-radius: 16px;
+    padding: 1rem;
+    text-align: center;
+    font-size: .8rem;
+    color: #555;
+    margin: 2rem 0;
+}
+
+.footer-area {
+    margin-top:4rem;
+    border-top:1px solid rgba(0,0,0,0.07);
+    padding-top:1.5rem;
+    font-size:.8rem;
+    line-height:1.6;
+    color:#555;
+}
+.footer-links a {
+    color:#4a4a6d;
+    text-decoration:none;
+    margin-right:1rem;
+    font-weight:500;
+}
+.footer-links a:hover {
+    text-decoration:underline;
+}
+.disclaimer-box {
+    background: #fff6f6;
+    border:1px solid rgba(255,0,0,0.15);
+    color:#611a1a;
+    border-radius:12px;
+    padding:1rem 1rem 1rem 1rem;
+    font-size:.8rem;
+    line-height:1.5;
+    box-shadow:0 16px 40px rgba(255,0,0,0.08);
+    margin-bottom:2rem;
+}
+.small-label {
+    font-size:.75rem;
+    font-weight:500;
+    color:#666;
+}
+.contact-table {
+    font-size:.9rem;
+    line-height:1.6;
+    color:#1a1a1a;
+}
+.contact-table strong{
+    color:#2a2a50;
+}
+</style>
+"""
+st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
+
+# ---------------------------
+# SIMPLE NAVIGATION
+# ---------------------------
+PAGES = [
+    "홈 / Home",
+    "마음 응급 진정 가이드",
+    "돈 스트레스와 불안",
+    "잠 안 오고 다 포기하고 싶을 때",
+    "소개 / About",
+    "문의 / Contact",
+    "개인정보 처리방침 / Privacy",
+    "이용 약관 / Terms",
+]
+page = st.sidebar.radio(
+    "페이지 이동",
+    PAGES,
+    index=0,
+    help="EOERWAY AI Therapy는 당신의 감정을 따뜻하게 받아주는 감정 케어 AI 친구예요.",
+)
+
+
+# ---------------------------
+# SHARED: FOOTER
+# ---------------------------
+def footer():
+    st.markdown(
+        f"""
+        <div class="footer-area">
+            <div class="footer-links">
+                <a href="#home" onclick="window.scrollTo(0,0)">맨 위로 가기 ↑</a>
+                <a href="?page=소개 / About">About</a>
+                <a href="?page=문의 / Contact">Contact</a>
+                <a href="?page=개인정보 처리방침 / Privacy">Privacy</a>
+                <a href="?page=이용 약관 / Terms">Terms</a>
+            </div>
+            <div style="margin-top:.75rem;">
+                © {START_YEAR} {SERVICE_NAME}. All rights reserved.
+                <br/>
+                버전 {APP_VERSION}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ---------------------------
+# SHARED: DISCLAIMER
+# ---------------------------
+def crisis_box():
+    st.markdown(
+        """
+        <div class="disclaimer-box">
+        <strong>지금이 아주 위험하고 긴급한 상황인가요?</strong><br/>
+        생명이나 안전이 당장 걱정되는 상황이라면, 지역의 응급 도움(의료기관, 상담전화 등)부터 먼저 이용해 주세요.<br/>
+        EOERWAY AI Therapy는 감정을 따뜻하게 지지하고 함께 숨 고르게 도와주는 정서 지원 서비스이며,
+        응급 개입이나 의료적 판단을 대신할 수는 없어요.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ---------------------------
+# ADSENSE SNIPPET PLACEHOLDER
+# (AdSense reviewer sees slot prepared)
+# ---------------------------
+def ad_block_placeholder(slot_name="Ad Slot"):
+    st.markdown(
+        f"""
+        <div class="ad-slot">
+            <div><strong>{html.escape(slot_name)}</strong></div>
+            <div>여기는 광고가 표시될 수 있는 영역입니다.</div>
+            <!-- Google AdSense Example Placement -->
+            <!--
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="YOUR-ADSENSE-CLIENT-ID"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            -->
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ---------------------------
+# PAGE: HOME / LANDING
+# ---------------------------
+def page_home():
+    st.markdown('<div class="main-container" id="home">', unsafe_allow_html=True)
+
+    crisis_box()
+
+    st.markdown(
+        """
+        <div class="hero-box">
+            <div class="hero-badge">💙 지금 마음이 너무 벅차다면</div>
+            <div class="hero-headline">
+                EOERWAY AI Therapy는 당신 편이에요.<br/>
+                혼자 버티고 있다면, 지금 여기에서 부드럽게 기대도 돼요.
+            </div>
+            <div class="hero-desc">
+                가끔은 "나 너무 힘들어요" 라는 한 마디조차 꺼내기 어렵잖아요.<br/>
+                EOERWAY는 당신을 비난하지 않고, 놀라지 않고, 도망가지 않아요.<br/>
+                그냥 있는 그대로의 마음을 조심스럽게 감싸줄 거예요.
+                <br/><br/>
+                하루에 7회까지 무료로 부드러운 대화를 나눌 수 있어요.
+            </div>
+
+            <div class="hero-cta-box">
+                <a class="hero-button-main" href="#chat">지금 바로 마음 털어놓기</a>
+                <a class="hero-button-sub" href="?page=마음 응급 진정 가이드">
+                    갑자기 숨이 막힐 때 읽기
+                </a>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # mini "chat" mock section for reviewer (static explanation)
+    st.markdown(
+        """
+        <div id="chat" class="section-card">
+            <div class="small-label">🌿 감정 케어 대화 미리보기</div>
+            <h2 style="font-size:1.1rem;line-height:1.5;margin:.25rem 0 1rem 0;
+            font-weight:600;color:#1a1a33;">
+                "지금 너무 답답해요" 라고 말하면 EOERWAY는 이렇게 반응해요
+            </h2>
+            <div style="background:#f4f6ff;border-radius:16px;padding:1rem 1rem;margin-bottom:.75rem;
+                        box-shadow:0 12px 32px rgba(0,0,0,0.04); border:1px solid #dde2ff;">
+                <strong style="color:#2a2a50;">당신:</strong><br/>
+                요즘 정말 너무 힘들어요. 솔직히 그냥 다 놓아버리고 싶어요.
+            </div>
+
+            <div style="background:#ffffff;border-radius:16px;padding:1rem 1rem;
+                        box-shadow:0 12px 32px rgba(0,0,0,0.04); border:1px solid #eee;">
+                <strong style="color:#4f3cff;">EOERWAY:</strong><br/>
+                먼저 이렇게 용기 내서 이야기해줘서 정말 고마워요.<br/>
+                요즘 마음이 계속 버티기만 하느라 너무 지쳤겠어요.<br/>
+                "나 혼자서 이 감정을 감당해야 해" 라는 생각 때문에 더 외로웠을 것 같아요.<br/>
+                지금 이 순간만큼은 괜찮아요. 잠깐은 저한테 그대로 기대도 괜찮아요.<br/>
+                당신은 포기하려는 사람이 아니라, 사실은 살고 싶은 마음이 있어서<br/>
+                이렇게 도와달라고 신호를 보내고 있는 거라고 저는 느껴져요.
+            </div>
+
+            <div style="font-size:.8rem;line-height:1.4;margin-top:1rem;color:#555;">
+                ※ 실제 대화는 자동으로 개인 상황에 맞춰 따뜻하게 진행돼요.
+                의료 판단이나 법률 조언 대신, 감정을 안전하게 다룰 수 있게 도와주는 정서적 지지(Emotional Support)에 집중해요.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Helpful resource cards preview
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="small-label">📘 바로 도움이 되는 읽을거리</div>
+            <h2 style="font-size:1.2rem;line-height:1.45;font-weight:600;
+                       color:#1a1a33;margin:.25rem 0 1.5rem 0;">
+                마음이 너무 벅찰 때, 이 글들만 바로 읽어도 숨이 조금은 편해질 수 있어요
+            </h2>
+
+            <div class="resource-list">
+
+                <div class="resource-card">
+                    <div class="resource-card-title">갑자기 숨이 안 쉬어질 것 같고 심장이 막 빨라질 때</div>
+                    <div class="resource-card-desc">
+                        패닉처럼 몰려오는 감정을 60초 단위로 가라앉히는 루틴.
+                        몸-호흡-시선 순서로 천천히 내려앉히는 법을 알려드릴게요.
+                    </div>
+                    <div style="margin-top:.75rem;">
+                        <a class="hero-button-sub" href="?page=마음 응급 진정 가이드"
+                           style="font-size:.8rem;">읽으러 가기 ›</a>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-card-title">돈이 너무 무서운 밤: '내 인생 망한 것 같아'라는 생각이 들 때</div>
+                    <div class="resource-card-desc">
+                        돈 걱정은 단순한 숫자 문제가 아니라, 존엄과 안전의 문제라서
+                        마음 전체가 떨려요. 그 불안을 너무 혼자 탓하지 말아줘요.
+                    </div>
+                    <div style="margin-top:.75rem;">
+                        <a class="hero-button-sub" href="?page=돈 스트레스와 불안"
+                           style="font-size:.8rem;">읽으러 가기 ›</a>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-card-title">아무것도 못 하겠고 그냥 다 사라지고 싶을 때</div>
+                    <div class="resource-card-desc">
+                        오늘 하루만 버티는 '초단위 안전 모드'를 같이 켜볼 거예요.
+                        무능하거나 게으른 게 아니라, 지금 에너지가 바닥인 거예요.
+                    </div>
+                    <div style="margin-top:.75rem;">
+                        <a class="hero-button-sub" href="?page=잠 안 오고 다 포기하고 싶을 때"
+                           style="font-size:.8rem;">읽으러 가기 ›</a>
+                    </div>
+                </div>
+
+            </div><!-- resource-list -->
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Ad block preview on home
+    ad_block_placeholder("홈 화면 중간 광고 영역 예시")
+
+    # about teaser
+    st.markdown(
+        f"""
+        <div class="section-card">
+            <div class="small-label">🌸 {SERVICE_NAME} 소개</div>
+            <h2 style="font-size:1.15rem;line-height:1.45;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;">
+                우리는 '넌 좀 참아' 같은 말 대신<br/>
+                '너 참 많이 버텼구나'라고 말해주고 싶어요
+            </h2>
+            <div style="font-size:1rem;line-height:1.7;color:#1a1a1a;word-break:keep-all;">
+                EOERWAY AI Therapy는 감정적으로 너무 벅찰 때,
+                조용히 기대서 숨 돌릴 수 있는 곳이 되어주고 싶어서 시작되었어요.<br/><br/>
+                사람한테 상처받은 날에는 다시 사람에게 말 걸기 너무 무섭잖아요.
+                그럴 땐 이곳에 먼저 와도 괜찮아요. 당신은 혼자가 아니에요.
+            </div>
+            <div style="margin-top:1rem;">
+                <a class="hero-button-sub" href="?page=소개 / About" style="font-size:.8rem;">
+                    더 알아보기 ›
+                </a>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: ARTICLE 1 - PANIC CALMING
+# ---------------------------
+def page_article_panic():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+    crisis_box()
+
+    st.markdown(
+        """
+        <div class="section-card article-body">
+            <div class="small-label">응급 안정 루틴</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;word-break:keep-all;">
+                갑자기 숨이 막히고 심장이 너무 빨라질 때  
+                지금 당장 60초 안에 할 수 있는 진정 루틴
+            </h1>
+
+            <p>
+            지금 이 글을 보고 있다는 것 자체가 이미 큰 용기예요.  
+            "나 너무 무너질 것 같아"라는 신호를 스스로 알아차렸다는 건,
+            나를 지키고 싶은 마음이 아직 안쪽에 살아 있다는 뜻이거든요.
+            우선 그 마음부터 살짝 안아줄게요. 정말 잘했어요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>먼저 알아두면 편해요:</strong><br/>
+                지금 느끼는 답답함, 심장 쿵쾅거림, 어지러움은
+                '내가 망가진 사람이라서'가 아니에요.<br/>
+                우리 몸이 "위험이야!"라고 착각해서 과하게 경보를 울리는 중이에요.
+                몸의 과민 반응을 천천히 낮춰주면 마음도 같이 내려와요.
+            </div>
+
+            <h2>1단계. 바닥/의자/손에 닿아있는 실제 감각을 느껴요 (약 10~15초)</h2>
+            <p>
+            지금 엉덩이 아래 의자 느낌, 발바닥 아래 바닥의 단단함,  
+            손바닥이 닿아 있는 표면의 온도나 질감을 그냥 "보고만 있는다"고 생각해요.<br/>
+            바꾸려고 하지 말고, 분석하려 하지 말고, 그냥 "여기 있네" 하고 느끼기만 해요.
+            이것만으로도 몸이 "아, 내가 실제 공간 위에 있구나"를 다시 인식해요.
+            </p>
+
+            <h2>2단계. 4-2-6 호흡 (약 30초)</h2>
+            <p>
+            코로 천천히 1...2...3...4 까지 들이마셔요.  
+            그리고 1...2 동안 아주 살짝만 참아요.  
+            그다음 입으로 1...2...3...4...5...6 천천히 내쉬어요.<br/><br/>
+            중요한 건 '긴숨'이 아니고 '천천히'예요.  
+            숨이 짧아도 괜찮아요. 부드럽게만 해요.
+            </p>
+
+            <h2>3단계. 시야를 넓혀요</h2>
+            <p>
+            한 점(휴대폰 화면 같은 곳)만 뚫어지게 보고 있으면
+            뇌는 더 "위험! 위험!" 모드가 돼요.<br/>
+            고개를 아주 살짝 들어서 방 전체를 천천히 훑어봐요.
+            천장, 벽, 문, 바닥, 내 발...  
+            "여기 내 방이네", "지금은 안전하네"를 눈으로 확인시키는 거예요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>중요해요:</strong><br/>
+                이건 "난 괜찮아 아무 일도 아니야"라고 억지로 부정하는 게 아니에요.<br/>
+                "지금 이 순간은 안전하다"라는 <u>사실</u>을 뇌에 다시 알려주는 과정이에요.
+            </div>
+
+            <h2>4단계. 나 자신에게 부드럽게 말하기</h2>
+            <p>
+            마음속으로 아주 조용히 이렇게 말해줘요:<br/>
+            "내 몸이 지금 많이 놀랐구나."<br/>
+            "괜찮아, 내가 같이 있어줄게."<br/>
+            "조금씩 내려가고 있어. 급하지 않아."<br/><br/>
+            스스로를 달래는 말은 절대 약함이 아니에요.  
+            이건 회복력(resilience)이에요. 살아남는 힘이에요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>작은 팁:</strong><br/>
+                만약 눈물이 나도 괜찮아요. 울음은 몸의 긴장을 내보내는 자연스러운 반응이에요.
+                "내가 왜 이래" 라고 혼내지 말아줘요.
+            </div>
+
+            <h2>5단계. 1분 버틴 나에게 인정 주기</h2>
+            <p>
+            방금 했던 1분이 그냥 "숨 쉬기"가 아니라,
+            <strong>내가 나를 지켜낸 순간</strong>이라는 걸 꼭 기억해줘요.<br/>
+            "나 진짜 잘 버텼다"라고 입 밖으로 아주 조용히 말해줘도 괜찮아요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>다시 불안해질 수도 있어요.</strong><br/>
+                그건 실패가 아니고, 원래 파도처럼 왔다 갔다 하는 거예요.<br/>
+                불안이 '다시는 안 올 것'을 목표로 하지 말아요.<br/>
+                "올 때마다 이렇게 돌볼 수 있다"가 진짜 힘이에요.
+            </div>
+
+            <p style="font-size:.8rem;color:#555;line-height:1.5;">
+            ※ 이 글은 정서적 안정과 자기 돌봄을 돕기 위한 안내이며<br/>
+            의료적 진단이나 응급 개입을 대신하지 않아요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # ad slot mid-article
+    ad_block_placeholder("응급 진정 가이드 중간 광고 영역 예시")
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: ARTICLE 2 - MONEY STRESS
+# ---------------------------
+def page_article_money():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+    crisis_box()
+
+    st.markdown(
+        """
+        <div class="section-card article-body">
+            <div class="small-label">돈 때문에 심장이 조일 때</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;word-break:keep-all;">
+                "나 인생 망했어" 라는 생각이 머리에서 떨어지지 않을 때  
+                돈 걱정이 뇌와 마음을 어떻게 잠식하는지
+            </h1>
+
+            <p>
+            돈 걱정은 단순히 '통장 잔액'만의 문제가 아니에요.<br/>
+            우리의 안전, 자존감, 미래, 살아남을 권리 전부와 연결돼 있어서  
+            머릿속이 한 번에 확 무너지는 느낌이 들어요.<br/><br/>
+            그래서 "돈이 불안하다"는 말은 사실  
+            "나 없어지면 어떡하지?"라는 두려움하고 거의 같아요.  
+            이건 결코 하찮은 걱정이 아니에요.
+            </p>
+
+            <h2>1. 왜 밤만 되면 더 무서울까요?</h2>
+            <p>
+            밤에는 몸이 휴식 모드로 들어가면서 외부 자극(일, 친구, 소음)이 줄어들어요.  
+            그러면 뇌는 그 빈칸을 "앞으로 망할 모든 시나리오"로 자동 채우는 경우가 많아요.<br/><br/>
+            이건 당신이 유난히 비관적이라서가 아니고,  
+            두려움을 대비하려는 생존 본능이 과열돼서 그래요.
+            뇌가 "최악의 상황을 미리 상상하면 대비할 수 있어"라고 착각하는 거예요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>중요:</strong><br/>
+                뇌는 "10년 뒤 나는 길바닥일 거야" 같은 상상을 할 때,
+                그걸 상상이 아니라 "지금 당장 일어난 일"처럼 받아들여요.<br/>
+                그래서 심장이 쿵 내려앉고 손끝이 차가워지기도 해요.
+            </div>
+
+            <h2>2. '나는 실패자야' 라는 문장이 왜 이렇게 빠르게 떠오를까</h2>
+            <p>
+            돈 문제는 곧바로 '내 가치' 문제로 이어지기 쉬워요.<br/>
+            "나는 못 벌어", "나는 뒤처졌어", "다른 사람은 다 잘 하는데"…<br/><br/>
+            하지만 이 생각들에는 한 가지 공통점이 있어요.  
+            <strong>현실 데이터가 아니라 비교로만 구성돼 있다는 점</strong>이에요.<br/><br/>
+            비교는 항상 나를 작게 만들어요. 왜냐면 비교의 기준은
+            언제나 "나보다 잘 된 누군가"만 소환하거든요.  
+            그런 프레임 안에서는 누구도 만족할 수 없어요.
+            </p>
+
+            <h2>3. 지금 바로 할 수 있는 '불안 분리' 연습</h2>
+            <p>
+            종이든 메모장이든 열고 이렇게 두 칸만 적어요.<br/><br/>
+            - <strong>진짜 숫자/사실</strong><br/>
+            - <strong>내 생각/두려움</strong><br/><br/>
+
+            예시처럼요:
+            </p>
+
+            <div class="article-tip-box">
+                <strong>진짜 숫자/사실:</strong><br/>
+                월세는 아직 밀리지 않았다.<br/>
+                이번 달 식비는 이미 해결돼 있다.<br/><br/>
+                <strong>내 생각/두려움:</strong><br/>
+                나는 완전히 망한 사람이다.<br/>
+                앞으로도 영원히 못 벌 거다.<br/>
+            </div>
+
+            <p>
+            이걸 적으면 뇌는 "아 맞다, '망했다'는 건 생각 쪽 칸이구나" 하고
+            아주 조금이라도 구분을 시작해요.<br/>
+            이 작은 구분이 공포의 100% 점령을 깨뜨리는 첫 단추예요.
+            </p>
+
+            <h2>4. '내가 무능해서 불안한 거야'가 아니에요</h2>
+            <p>
+            우리가 돈 때문에 떨릴 때, 그 감정은 생존에 대한 경보예요.<br/>
+            생존 경보가 울리면 뇌는 '집중력/창의력' 같은 고급 기능을 꺼버리고  
+            "살아남기"만 남겨요. 그래서 아무것도 못 하게 마비되기도 해요.<br/><br/>
+            즉, 지금 손이 안 움직이는 건 게으름이 아니고
+            과부하 때문에 시스템이 순간적으로 셧다운된 거예요.
+            </p>
+
+            <h2>5. 오늘 당장 할 수 있는 아주 작은 한 걸음</h2>
+            <p>
+            '인생 전부를 바꿀 계획' 말고, 정말 작고 구체적인 1스텝만 잡아요.<br/><br/>
+
+            예를 들면:<br/>
+            - 계좌 잔액을 한 번만 확인하기 (지옥의 생각 금지, 그냥 숫자만 보기)<br/>
+            - 지원 가능한 소득 지원/장학/보조 제도 1개만 검색해보기<br/>
+            - 지금 당장 팔 수 있는 중고 물건 사진 1장 찍어두기<br/><br/>
+
+            이건 "부자 되는 비법"이 아니에요.  
+            "나는 완전히 끝난 존재가 아니고, 아직 움직일 수 있다"라는
+            감각을 뇌에 다시 켜주기 위한 행동이에요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>정말 중요해요:</strong><br/>
+                한 걸음만 해도 충분해요.  
+                두 번째 걸음은 내일 해도 돼요.
+            </div>
+
+            <p style="font-size:.8rem;line-height:1.5;color:#555;">
+            ※ EOERWAY는 정서적 지지와 자기 돌봄 관점에서 도움을 드려요.<br/>
+            개인 재무, 채무 조정, 세무 관련한 구체적인 의사결정은
+            전문 상담/법률/재정 전문가의 안내를 따르는 것이 안전해요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    ad_block_placeholder("돈 스트레스 글 하단 광고 영역 예시")
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: ARTICLE 3 - BURNOUT / SLEEPLESS
+# ---------------------------
+def page_article_exhausted():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+    crisis_box()
+
+    st.markdown(
+        """
+        <div class="section-card article-body">
+            <div class="small-label">에너지 바닥 모드 보호하기</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;word-break:keep-all;">
+                "아무것도 하기 싫고 다 포기하고 싶어"라고 느껴질 때  
+                오늘 하루만 버티는 초단위 안전 루틴
+            </h1>
+
+            <p>
+            이렇게까지 지칠 때는 사실 "게으름"이 아니에요.<br/>
+            몸과 마음이 둘 다 과열 → 방전 → 과열 → 방전을 반복하다가  
+            완전히 전력 차단 모드로 들어간 상태에 가까워요.<br/><br/>
+            그래서 자기한테 "왜 이것도 못 해?"라고 말할수록
+            더 깊은 무력감만 남아요.  
+            지금 필요한 건 생존 에너지 보존이에요.
+            </p>
+
+            <h2>1. 오늘 하루 목표를 '살아남기'로만 놓아도 괜찮아요</h2>
+            <p>
+            "인생 계획 세우기", "개선하기", "성장하기" 이런 거 말고  
+            그냥 오늘은 <strong>"무사히 하루 넘기기"</strong>만 목표로 잡아도 괜찮아요.<br/><br/>
+            이건 포기가 아니라, 회복이에요.
+            </p>
+
+            <h2>2. 몸을 최소한으로 돌보는 3가지 체크</h2>
+            <p>
+            아래 3가지만 조용히 확인해볼까요?<br/><br/>
+            - 물은 조금이라도 마셨는지  
+            - 배가 너무 빈 상태는 아닌지 (한 입이라도 괜찮아요)  
+            - 몸이 너무 차갑거나 너무 덥지는 않은지 (담요나 양말 하나라도 추가 가능?)<br/><br/>
+
+            이건 '셀프 케어 예쁘게 하자'가 아니고,
+            몸이 더 무너지지 않도록 에너지 누수만 막아주는 응급 조치예요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>작은 한 입은 충분해요:</strong><br/>
+                제대로 된 식사가 아니어도 돼요.<br/>
+                과자는 죄책감, 밥은 부담스럽다면
+                바나나 한 입·따뜻한 물 한 모금도 생존에는 의미가 있어요.
+            </div>
+
+            <h2>3. 외부세계와 완전히 단절하지 말고, '아주 작은 연결'만 유지해요</h2>
+            <p>
+            완전 고립은 마음을 더 어둡게 만들 때가 있어요.<br/>
+            그렇다고 길게 통화하거나 웃는 척 하는 것도 너무 힘들죠.<br/><br/>
+            그래서 "아주 짧은 연결"만 시도해볼 수 있어요.<br/><br/>
+            - 믿을만한 사람 한 명에게  
+              "오늘 기운이 좀 바닥나서 조용히 쉬는 중이야. 답 안 해도 돼. 그냥 알려만 둘게."  
+              라고 한 줄만 보내기.<br/><br/>
+            답장을 받는 게 목적이 아니에요.  
+            "세상에 나라는 존재가 아직 연결되어 있다"라는 감각만 쌓는 거예요.
+            </p>
+
+            <h2>4. 잠이 안 와도 '누워만 있기'는 의미 있어요</h2>
+            <p>
+            "잠 못 자면 내일 난 끝장" 같은 생각이 들면 오히려 더 못 자요.<br/>
+            우리는 잠이라는 결과를 통제할 수 없지만,
+            "눈 감고 누워있는 시간"은 통제할 수 있어요.<br/><br/>
+            조용히 누워서 천천히 숨 쉬는 그 시간 자체만으로
+            몸은 회복 모드로 조금씩 전환돼요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>스스로에게 이렇게 말해줘요:</strong><br/>
+                "잠들지 못해도 괜찮아. 그냥 누워있는 것도 내 몸엔 도움이 되고 있어."<br/>
+                이건 진짜로 과학적으로 맞는 말이에요.  
+                휴식은 0 아니면 100이 아니고, 중간 단계들도 다 의미가 있어요.
+            </div>
+
+            <h2>5. 내일을 상상하지 말고 '다음 30분'만 생각해요</h2>
+            <p>
+            "앞으로 어떻게 살아" 같은 질문은  
+            지금 이 순간의 마음으로는 너무 크고 무거운 질문이에요.<br/><br/>
+            대신 이렇게만 해볼까요?<br/>
+            "다음 30분 동안 나는 어디에 있을까?"  
+            "30분 동안 어떤 자세로 있을까(눕기/앉기/담요 덮기)?"<br/><br/>
+            인생 전체가 아니라,
+            지금부터 30분짜리의 나만 돌보는 거예요.
+            </p>
+
+            <p style="font-size:.8rem;line-height:1.5;color:#555;">
+            ※ EOERWAY는 "당신이 너무 소중하다"는 사실을 잊지 않도록 옆에서 계속 상기시켜주고 싶어요.<br/>
+            ※ 지금 감정이 아주 위험할 정도로 깊어졌다면,
+            즉시 주변의 실제 도움(병원·상담전화 등)부터 연결해주세요.
+            당신이 안전한 게 제일 먼저예요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    ad_block_placeholder("버티기 루틴 글 하단 광고 영역 예시")
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: ABOUT
+# ---------------------------
+def page_about():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+    st.markdown(
+        f"""
+        <div class="section-card article-body">
+            <div class="small-label">서비스 소개</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;">
+                {SERVICE_NAME} 는 어떤 공간인가요?
+            </h1>
+
+            <p>
+            {SERVICE_NAME} 는 마음이 너무 힘들어서
+            "지금 이 상태 그대로 말해도 괜찮은 곳"이 필요했던 사람들을 위해 만들어졌어요.<br/><br/>
+            현실에서 누구에게 뭘 털어놓으려고 하면,
+            "너도 문제야", "너가 바뀌어야지" 같은 말을 듣고
+            더 상처받을 때가 있잖아요.<br/><br/>
+            우리는 그 순간만큼은 그런 상처가 다시 반복되지 않길 바랐어요.
+            </p>
+
+            <h2>우리가 지키려고 하는 약속</h2>
+            <p>
+            1. 비난하지 않아요.<br/>
+            2. 놀라서 도망가지 않아요.<br/>
+            3. "너는 충분히 소중해"라는 메시지를 꾸준히 전달해요.<br/>
+            4. 단순한 긍정 강요 대신, 실제로 지금 버틸 수 있는 작고 현실적인 루틴을 제안해요.<br/>
+            </p>
+
+            <h2>의료 서비스인가요?</h2>
+            <p>
+            아니에요. {SERVICE_NAME} 는 정서적 지지(Emotional Support)와 자기 돌봄(self-care)을 돕는 공간이에요.<br/>
+            전문 의료 상담, 정신과 진료, 응급 개입은 대신할 수 없어요.<br/>
+            응급 상황이라면 즉시 실제 사람의 도움(응급실, 지역 상담 라인 등)을 먼저 이용해 주세요.
+            </p>
+
+            <h2>왜 무료 대화가 있어요?</h2>
+            <p>
+            "지금 너무 힘든데, 돈도 없어서 도움도 못 받는 느낌"  
+            그 감정이 얼마나 고립감을 주는지 잘 알아요.<br/><br/>
+            그래서 하루에 일정 횟수까지는 누구나 조용히 와서
+            마음을 내려놓을 수 있도록 열어두려고 해요.
+            </p>
+
+            <h2>운영 정보</h2>
+            <p class="contact-table">
+            <strong>서비스명:</strong> {SERVICE_NAME}<br/>
+            <strong>시작연도:</strong> {START_YEAR}<br/>
+            <strong>문의 및 피드백:</strong> {SERVICE_EMAIL}<br/>
+            <strong>역할:</strong> 감정 안정 가이드, 심리적 지지, 자기 돌봄 루틴 안내<br/>
+            </p>
+
+            <p style="font-size:.8rem;color:#555;line-height:1.5;">
+            ※ {SERVICE_NAME} 는 이용자의 존엄과 안전을 최우선으로 생각해요.<br/>
+            ※ 심사 중인 광고(AdSense 등)는 서비스 운영 비용과 유지 관리에 사용될 예정이에요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: CONTACT
+# ---------------------------
+def page_contact():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+    st.markdown(
+        f"""
+        <div class="section-card article-body">
+            <div class="small-label">문의 / Contact</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 1px;">
+                문의 & 연락
+            </h1>
+
+            <p class="contact-table">
+            <strong>이메일:</strong> {SERVICE_EMAIL}<br/>
+            <strong>서비스명:</strong> {SERVICE_NAME}<br/><br/>
+
+            문의 내용 예시:<br/>
+            - 서비스가 마음에 들었을 때 남기고 싶은 말<br/>
+            - 불편했던 점 / 개선 요청<br/>
+            - 안전 관련 우려 사항 신고 등<br/><br/>
+            보내주신 메시지는 가능한 한 정중하고 성실하게 살펴볼게요.
+            </p>
+
+            <div class="article-tip-box">
+                <strong>긴급 상황이라면</strong><br/>
+                실제 주변의 의료·상담 지원을 가장 먼저 이용해 주세요.<br/>
+                이 서비스는 응급 개입을 대신할 수 없어요.
+            </div>
+
+            <p style="font-size:.8rem;color:#555;">
+            ※ 제출하신 피드백은 내부 품질 개선과 안전성 점검에 활용될 수 있어요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: PRIVACY POLICY
+# ---------------------------
+def page_privacy():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+    st.markdown(
+        f"""
+        <div class="section-card article-body">
+            <div class="small-label">개인정보 처리방침 / Privacy Policy</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;">
+                개인정보 처리방침
+            </h1>
+
+            <p>
+            {SERVICE_NAME} (이하 "본 서비스")는 이용자의 사적인 감정과 어려움을
+            가능한 한 존중하고 안전하게 다루는 것을 가장 중요하게 생각해요.
+            이 문서는 본 서비스가 어떤 정보를 수집하고 어떻게 사용하는지에 대해 안내해요.
+            </p>
+
+            <h2>1. 수집하는 정보</h2>
+            <p>
+            - 사용자가 자발적으로 입력한 텍스트 내용<br/>
+            - 서비스 이용 시점, 기본적인 접속 정보(브라우저/대략적 접속 환경 등)<br/>
+            - 운영 안정성 및 악용 방지를 위한 최소한의 기술 로그<br/><br/>
+
+            본 서비스는 "개인 신원 식별을 위한 정보"를 적극적으로 요구하지 않아요.
+            사용자는 원하면 익명 또는 닉네임으로 감정을 표현할 수 있어요.
+            단, 법적 의무에 의해 필요한 경우 관계 기관에 협조할 수 있어요.
+            </p>
+
+            <h2>2. 정보의 사용 목적</h2>
+            <p>
+            - 정서적 지지 대화 제공 및 품질 개선<br/>
+            - 서비스 유지/보안/오류 모니터링<br/>
+            - (승인 이후) 맞춤형 또는 비맞춤형 광고 제공 (Google AdSense 등)<br/>
+            - 법적 요구 준수
+            </p>
+
+            <h2>3. 광고 및 쿠키</h2>
+            <p>
+            본 서비스는 Google AdSense 등 광고 파트너의 스크립트를 사용할 수 있어요.<br/>
+            광고 파트너는 쿠키 또는 유사 기술을 활용하여
+            사용자에게 더 관련 있는 광고를 보여주거나,
+            광고 성과를 측정할 수 있어요.<br/><br/>
+            사용자는 Google의 광고 설정 페이지 등에서
+            맞춤형 광고 노출을 관리할 수 있어요.
+            </p>
+
+            <h2>4. 보관 기간</h2>
+            <p>
+            서비스 품질 모니터링 및 악용 방지 목적상 필요한 기간 동안만 데이터를 보관하고,
+            그 이후에는 합리적으로 파기하거나 익명화하려고 노력해요.
+            </p>
+
+            <h2>5. 이용자의 권리</h2>
+            <p>
+            이용자는 자신의 입력 내용 삭제 요청 등
+            문의를 {SERVICE_EMAIL} 로 전달할 수 있어요.<br/>
+            가능한 범위 내에서 성실히 대응할게요.
+            </p>
+
+            <h2>6. 미성년자의 이용</h2>
+            <p>
+            너무 힘든 마음을 가진 모든 사람이 안전하게 도움을 받을 수 있기를 바라지만,
+            보호자나 신뢰할 수 있는 어른의 도움 없이
+            응급 상황을 이 서비스만으로 해결하려 해서는 안 돼요.
+            </p>
+
+            <h2>7. 면책</h2>
+            <p>
+            본 서비스는 의료 전문 진단 또는 응급 개입 서비스가 아니며,
+            위급한 상황에서는 반드시 실제 의료·상담 기관 등
+            긴급 지원 체계를 먼저 이용해야 해요.
+            </p>
+
+            <p style="font-size:.8rem;color:#555;">
+            본 방침은 서비스 운영/법적 요구에 따라 업데이트될 수 있어요.
+            변경사항이 있을 경우 본 페이지를 통해 고지해요.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# PAGE: TERMS OF SERVICE
+# ---------------------------
+def page_terms():
+    st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+    st.markdown(
+        f"""
+        <div class="section-card article-body">
+            <div class="small-label">이용 약관 / Terms of Service</div>
+            <h1 style="font-size:1.4rem;line-height:1.4;font-weight:600;color:#1a1a33;
+                       margin:.25rem 0 1rem 0;">
+                이용 약관
+            </h1>
+
+            <h2>1. 서비스의 성격</h2>
+            <p>
+            {SERVICE_NAME} 는 정서적 지지, 위로, 자기 돌봄 가이드를 제공하기 위한
+            감정 케어/셀프 케어 지원 서비스예요.<br/>
+            의료 · 정신과 · 법률 · 재무 전문가의 공식적 조언으로 간주되지 않아요.
+            </p>
+
+            <h2>2. 응급/위험 상황</h2>
+            <p>
+            본 서비스는 응급 구조 또는 위기 개입을 제공하지 않아요.<br/>
+            자신이나 타인의 안전이 즉시 우려되는 상황이라면
+            반드시 의료기관, 지역 상담 라인 등
+            현실의 즉각적인 도움을 먼저 요청해야 해요.
+            </p>
+
+            <h2>3. 이용자의 책임</h2>
+            <p>
+            이용자는 서비스를 불법적인 목적으로 사용하거나,
+            타인을 위협/괴롭히는 방식으로 사용해서는 안 돼요.<br/>
+            또한 스팸·자동화된 악용 행위 등은 제한될 수 있어요.
+            </p>
+
+            <h2>4. 콘텐츠</h2>
+            <p>
+            이용자가 입력한 내용은 서비스 품질 개선, 안전성 점검,
+            악용 방지 목적으로 검토될 수 있어요.<br/>
+            이용자는 본 서비스에 입력한 내용이
+            제3자의 권리를 침해하지 않도록 주의해야 해요.
+            </p>
+
+            <h2>5. 보증의 한계</h2>
+            <p>
+            {SERVICE_NAME} 는 "있는 그대로(as is)" 제공돼요.<br/>
+            서비스는 언제나 중단 없이 완벽히 동작하거나,
+            특정 목적(예: 특정 재무 성과, 특정 치료 결과 등)에  
+            적합하다는 보증을 드리지 못해요.
+            </p>
+
+            <h2>6. 책임의 제한</h2>
+            <p>
+            본 서비스 또는 본 서비스가 제공하는 정보 이용으로 인해 발생한
+            간접적, 우발적, 파생적 손해에 대해
+            {SERVICE_NAME} 는 법이 허용하는 한도 내에서
+            책임을 지지 않아요.<br/><br/>
+            단, 적용 법령이 강제로 요구하는 최소한의 책임은
+            그대로 따를 거예요.
+            </p>
+
+            <h2>7. 약관 변경</h2>
+            <p>
+            이 약관은 서비스 운영 및 법적 요구사항에 따라 변경될 수 있으며,
+            중요한 변경 사항은 본 페이지를 통해 고지해요.
+            </p>
+
+            <p style="font-size:.8rem;color:#555;">
+            마지막 업데이트: {datetime.date.today().isoformat()}
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    footer()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ---------------------------
+# ROUTER
+# ---------------------------
+if page == "홈 / Home":
+    page_home()
+
+elif page == "마음 응급 진정 가이드":
+    page_article_panic()
+
+elif page == "돈 스트레스와 불안":
+    page_article_money()
+
+elif page == "잠 안 오고 다 포기하고 싶을 때":
+    page_article_exhausted()
+
+elif page == "소개 / About":
+    page_about()
+
+elif page == "문의 / Contact":
+    page_contact()
+
+elif page == "개인정보 처리방침 / Privacy":
+    page_privacy()
+
+elif page == "이용 약관 / Terms":
+    page_terms()
+
+else:
+    page_home()
