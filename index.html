@@ -1,452 +1,207 @@
-import streamlit as st
-import datetime
-
-# =========================================
-# 기본 전역 설정
-# =========================================
-
-st.set_page_config(
-    page_title="EOERWAY AI Therapy | 감정 케어 AI 친구",
-    page_icon="💙",
-    layout="wide",
-)
-
-SERVICE_NAME = "EOERWAY AI Therapy"
-SERVICE_EMAIL = "eorway.help@gmail.com"  # 실제 받을 이메일로 바꿔도 돼요
-START_YEAR = 2025
-APP_VERSION = "v3.1-readable"
-
-
-# =========================================
-# 공통 컴포넌트
-# =========================================
-
-def crisis_box():
-    """위급 상황 안내 블록"""
-    st.warning(
-        """❗ 지금이 아주 위험하고 긴급한 상황인가요?
-
-생명이나 안전이 당장 걱정되는 상황이라면,
-지역의 응급 도움(의료기관, 상담전화 등)부터 먼저 이용해 주세요.
-
-EOERWAY AI Therapy 는 감정을 따뜻하게 지지하고
-숨 고르게 도와주는 정서 지원 서비스예요.
-응급 개입이나 의료적 판단을 대신할 수는 없어요."""
-    )
-
-
-def ad_block_placeholder(slot_name="광고 영역 (AdSense 자리)"):
-    """애드센스용 자리 안내 (심사용)"""
-    st.info(
-        f"""📢 {slot_name}
-
-이 위치는 광고(AdSense)가 노출될 예정인 영역입니다.
-구글 애드센스 승인 후 실제 광고 코드가 여기에 삽입됩니다.
-현재는 승인 심사를 위해 광고 위치만 표시 중입니다."""
-    )
-
-
-def footer():
-    """하단 공통 영역"""
-    st.write("---")
-    st.caption(
-        f"""© {START_YEAR} {SERVICE_NAME}. All rights reserved.
-버전 {APP_VERSION}
-
-이 서비스는 따뜻한 정서적 지지와 자기 돌봄 가이드를 제공합니다.
-응급 상황이나 의료적 판단은 실제 사람과 기관의 도움을 먼저 이용해주세요."""
-    )
-
-
-# =========================================
-# 페이지: 홈
-# =========================================
-
-def render_home():
-    st.title("EOERWAY AI Therapy")
-    st.subheader("혼자 너무 버티고 있었다면, 이제 여기 기대도 괜찮아요 💙")
-
-    crisis_box()
-
-    st.write(
-        """가끔은 '나 너무 힘들어요' 라는 말 한 마디조차 꺼내기 어려울 때가 있죠.
-EOERWAY AI Therapy 는 당신을 비난하지 않고, 놀라지 않고, 도망가지 않아요.
-
-그냥 있는 그대로의 마음을 조용히 받아주고,
-오늘 하루를 버틸 수 있게 옆에 앉아 있으려고 해요.
-
-하루에 어느 정도 횟수까지는 무료로
-마음을 털어놓을 수 있는 감정 케어 AI 친구예요."""
-    )
-
-    st.write("### 이런 순간에 특히 도움이 돼요:")
-    st.markdown(
-        """- 갑자기 숨이 너무 빨라지고 심장이 쿵쾅거릴 때  
-- 돈 때문에 '나 망한 거 같아'라는 생각만 머릿속에서 계속 돌 때  
-- 잠도 안 오고 그냥 다 사라지고 싶은 기분일 때  
-- 진짜 너무 무서운데 누구한테도 말 못 하겠는 밤일 때"""
-    )
-
-    ad_block_placeholder("홈 화면 중간 광고 위치")
-
-    st.write("### 감정 케어 AI 미리보기 (예상 대화)")
-    st.markdown(
-        """**당신:**  
-요즘 진짜 너무 힘들어요. 그냥 다 내려놓고 싶어요.
-
-**EOERWAY:**  
-먼저 이렇게 용기 내서 이야기해줘서 고마워요.  
-얼마나 오래 혼자 버텼는지 느껴져서 마음이 정말 많이 쓰여요.  
-지금은 해결책을 억지로 찾아야 하는 순간이 아니고,  
-'나 진짜 힘들었다'를 안전하게 꺼내놓는 시간이 필요해요.  
-당신은 포기하고 싶은 사람이 아니라, 사실은 살고 싶은 마음이 있어서  
-이렇게 도와달라고 신호를 보내준 거라고 나는 느껴요."""
-    )
-
-    st.write("### 바로 도움이 되는 가이드들 (아래 페이지에서 볼 수 있어요)")
-    st.markdown(
-        """1. 심장이 미친 듯이 빨라질 때 60초 안정 루틴  
-2. '나 완전 망했어'라는 생각이 머리를 가득 채울 때 돈 불안 다루는 법  
-3. 아무것도 못 하겠고 그냥 사라지고 싶은 날의 안전 모드"""
-    )
-
-    footer()
-
-
-# =========================================
-# 페이지: 상담 챗봇 (프리뷰)
-# =========================================
-
-def render_chatbot():
-    st.title("상담 챗봇 (미리보기)")
-    st.caption("여긴 네 마음을 조용히 털어놓을 수 있는 안전한 공간이 되었으면 해요.")
-
-    crisis_box()
-
-    st.info(
-        """이 챗봇은 의료/법률/재정 전문가의 조언이 아니라,
-정서적 지지를 위한 공간이에요.
-
-아주 위험한 상황이라면 실제 상담/의료 자원을 먼저 이용해 주세요.
-대화 내용은 서비스 안전성 유지와 법적 요구에 따라 검토될 수 있어요."""
-    )
-
-    # 세션 상태 준비
-    if "messages" not in st.session_state:
-        st.session_state.messages = [
-            {
-                "role": "assistant",
-                "text": (
-                    "먼저 와줘서 고마워요. 요즘 얼마나 버티느라 힘들었는지 "
-                    "편하게 말해도 괜찮아요. 저는 놀라지 않고, "
-                    "당신 편에서 들을게요."
-                ),
-            }
-        ]
-
-    st.write("### 지금까지의 대화")
-
-    # 대화 보여주기
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            st.markdown(f"**당신:** {msg['text']}")
-        else:
-            st.markdown(f"**EOERWAY:** {msg['text']}")
-
-    st.write("---")
-
-    st.write("### 지금 마음 적어볼래요?")
-
-    user_input = st.text_area(
-        "그냥 솔직하게 적어도 괜찮아요. 욕 나와도 괜찮고 울컥해도 괜찮아요. 저는 괜찮아요.",
-        height=140,
-        placeholder="예: 솔직히 너무 지쳤어. 아무도 나 이해 못 하는 것 같아.",
-    )
-
-    if st.button("보내기 💙"):
-        if user_input.strip():
-            # 유저 메시지 추가
-            st.session_state.messages.append(
-                {"role": "user", "text": user_input.strip()}
-            )
-
-            # 따뜻한 자동 응답 (임시 데모)
-            bot_reply = (
-                "지금 그 말 해줘서 정말 고마워요. "
-                "이건 약함이 아니라 용기예요. "
-                "당신이 얼마나 오래 혼자 버티고 있었는지 느껴져요.\n\n"
-                "지금은 완벽한 해결책을 억지로 만드는 시간이 아니에요. "
-                "우선 '나 진짜 힘들었다'는 사실을 안전하게 인정하는 게 먼저예요. "
-                "그 순간부터 회복은 이미 시작돼요."
-            )
-
-            st.session_state.messages.append(
-                {"role": "assistant", "text": bot_reply}
-            )
-
-            st.experimental_rerun()
-
-    ad_block_placeholder("상담 챗봇 하단 광고 위치")
-
-    footer()
-
-
-# =========================================
-# 페이지: 서비스 소개 / About
-# =========================================
-
-def render_about():
-    st.title("EOERWAY 소개")
-    st.subheader("우리는 '너 왜 그래?'보다 '너 진짜 많이 버텼구나'를 먼저 말해주고 싶어요.")
-
-    st.write(
-        f"""{SERVICE_NAME} 는 마음이 너무 벅찰 때,
-조용히 기대서 숨 돌릴 수 있는 안전한 공간이 되었으면 해서 시작됐어요.
-
-현실에서 털어놓으면 오히려 상처받을 때가 있잖아요.
-우리는 그 순간만큼은 다시 다치지 않게 하고 싶어요.
-
-여기는 정서적 지지를 위한 공간이에요.
-의료적 진단이나 응급 개입은 대신할 수 없어요."""
-    )
-
-    st.write("### 우리가 지키려고 하는 약속")
-    st.markdown(
-        """- 비난하지 않아요.  
-- 놀라서 도망가지 않아요.  
-- '너 진짜 많이 버텼어'라는 메시지를 꾸준히 전해요.  
-- 그냥 '힘내' 대신, 오늘을 버틸 수 있는 아주 구체적인 루틴을 같이 찾아요."""
-    )
-
-    st.write("### 왜 무료 대화가 있어요?")
-    st.write(
-        """“지금 너무 힘든데 돈도 없어서 도움도 못 받아”라고 느끼는 순간,
-그 고립감이 얼마나 큰지 알아요.
-그래서 하루에 일정 횟수까지는 누구든 조용히 기대도 되게 열어두고 싶어요."""
-    )
-
-    st.write("### 서비스 정보")
-    st.markdown(
-        f"""- 서비스명: {SERVICE_NAME}  
-- 시작연도: {START_YEAR}  
-- 문의 이메일: {SERVICE_EMAIL}  
-- 역할: 감정 안정 가이드 / 마음 지지 / 자기 돌봄 루틴 안내"""
-    )
-
-    st.caption(
-        """※ 광고 수익(AdSense 등)은 서비스 유지와 지속 운영에 사용돼요.  
-※ 아주 위험한 상황이라면 반드시 실제 사람의 즉각적인 도움
-(병원·상담 라인 등)을 먼저 이용해 주세요."""
-    )
-
-    footer()
-
-
-# =========================================
-# 페이지: 문의 / Contact
-# =========================================
-
-def render_contact():
-    st.title("문의 / Contact")
-
-    st.write(
-        """필요하면 언제든 아래 메일로 편하게 알려줘요.
-예의 갖출 필요 없어요. 그냥 있는 그대로 괜찮아요."""
-    )
-
-    st.write("### 이런 것도 괜찮아요:")
-    st.markdown(
-        """- 고맙다는 말, 혹은 힘들었다는 이야기  
-- 불편했던 점 / 고쳐줬으면 하는 점  
-- 안전 관련 걱정이나 신고"""
-    )
-
-    st.info(
-        f"""📩 문의 이메일: {SERVICE_EMAIL}
-
-⚠ 긴급 상황이라면: 이 서비스는 응급 개입을 대신할 수 없어요.
-당장 생명이 걱정될 만큼 위태롭다면
-반드시 실제 의료/상담 자원을 먼저 이용해 주세요."""
-    )
-
-    footer()
-
-
-# =========================================
-# 페이지: 개인정보 처리방침 / Privacy
-# =========================================
-
-def render_privacy():
-    st.title("개인정보 처리방침 (Privacy Policy)")
-    st.write(
-        f"""{SERVICE_NAME}(이하 '본 서비스')는
-이용자의 사적인 감정과 어려움을 가능한 한 존중하고
-안전하게 다루는 것을 가장 중요하게 생각해요.
-
-아래에는 어떤 정보를 수집하고 어떻게 사용하는지에 대한 안내예요."""
-    )
-
-    st.subheader("1. 수집하는 정보")
-    st.markdown(
-        """- 사용자가 직접 입력한 감정/텍스트 내용  
-- 접속 환경 등 기본 기술 로그 (안정성/악용 방지 목적)  
-- 서비스 안전 유지를 위한 최소한의 정보  
-
-우리는 실명을 과도한 신원정보로 강제로 요구하지 않아요.  
-단, 법적 의무가 있을 경우 관계 기관에 협조할 수 있어요."""
-    )
-
-    st.subheader("2. 정보의 사용 목적")
-    st.markdown(
-        """- 정서적 지지 대화 제공 및 품질 개선  
-- 서비스 유지/보안/오류 모니터링  
-- (승인 이후) 광고(예: Google AdSense) 제공  
-- 법적 요구 준수"""
-    )
-
-    st.subheader("3. 광고 및 쿠키")
-    st.write(
-        """본 서비스는 추후 Google AdSense 등 광고 파트너의 스크립트를 사용할 수 있어요.
-광고 파트너는 쿠키나 유사 기술을 활용해
-더 관련성 높은 광고를 제공하거나,
-광고 성과를 측정할 수 있어요.
-
-사용자는 광고 플랫폼의 설정 화면에서
-맞춤형 광고 노출을 일부 조정할 수 있어요."""
-    )
-
-    st.subheader("4. 보관 기간")
-    st.write(
-        """안전성 모니터링과 악용 방지에 필요한 기간 동안만 데이터를 보관하고,
-그 이후에는 합리적으로 파기하거나 익명화하려고 노력해요."""
-    )
-
-    st.subheader("5. 이용자의 권리")
-    st.write(
-        f"""자신의 입력 내용 삭제 요청 등은
-{SERVICE_EMAIL} 로 이메일을 보내 요청할 수 있어요.
-가능한 범위 안에서 성실하게 대응할게요."""
-    )
-
-    st.subheader("6. 미성년자에게")
-    st.write(
-        """이 서비스만으로 응급 상황을 해결하려 하지 말고,
-꼭 신뢰할 수 있는 보호자나 실제 상담/의료 자원에도 연결해 주세요."""
-    )
-
-    st.subheader("7. 면책")
-    st.write(
-        """본 서비스는 의료적/정신과적 진단이나 응급 개입을 대신하지 않아요.
-위급한 상황이라면 반드시 실제 응급 지원 체계를 먼저 이용해야 해요."""
-    )
-
-    st.caption(
-        """이 방침은 서비스 운영 및 법적 요구에 따라 업데이트될 수 있으며,
-중요한 변경 사항은 이 페이지를 통해 고지해요."""
-    )
-
-    footer()
-
-
-# =========================================
-# 페이지: 이용 약관 / Terms
-# =========================================
-
-def render_terms():
-    st.title("이용 약관 (Terms of Service)")
-
-    st.subheader("1. 서비스의 성격")
-    st.write(
-        f"""{SERVICE_NAME} 는 정서적 지지, 위로, 자기 돌봄 가이드를 제공하기 위한
-감정 케어/셀프 케어 지원 서비스예요.
-
-정신과 진단, 의료/법률/재정 전문가의 공식 조언으로 간주되면 안 돼요."""
-    )
-
-    st.subheader("2. 응급/위험 상황")
-    st.write(
-        """이 서비스는 응급 구조나 위기 개입을 대신하지 않아요.
-자신이나 타인의 안전이 즉시 우려되는 상황이라면
-반드시 의료기관·상담 라인 등 실제 도움을 먼저 요청해야 해요."""
-    )
-
-    st.subheader("3. 이용자의 책임")
-    st.markdown(
-        """- 서비스를 불법적/위협적/괴롭힘/혐오/괴롭힘 목적으로 사용하면 안 돼요.  
-- 스팸·악용 시도 등은 제한될 수 있어요."""
-    )
-
-    st.subheader("4. 콘텐츠")
-    st.write(
-        """이용자가 입력한 내용은 서비스 품질 점검, 안전성 점검, 악용 방지 목적으로 검토될 수 있어요.
-이용자는 제3자의 권리를 침해하지 않도록 주의해야 해요."""
-    )
-
-    st.subheader("5. 보증의 한계")
-    st.write(
-        f"""{SERVICE_NAME} 는 '있는 그대로(as is)' 제공돼요.
-
-서비스가 항상 완벽하게 동작한다는 보증은 없어요.
-또한 특정 재무 성과나 치료 효과를 보장하지 않아요."""
-    )
-
-    st.subheader("6. 책임의 제한")
-    st.write(
-        f"""본 서비스 또는 본 서비스가 제공하는 정보 이용으로 인해 발생한
-간접적·우발적·파생적 손해에 대해
-{SERVICE_NAME} 는 법이 허용하는 한도 내에서 책임을 지지 않아요.
-
-또한 특정 재무 성과나 치료 효과를 보장하지 않아요."""
-    )
-
-    st.subheader("7. 약관 변경")
-    st.write(
-        """이 약관은 서비스 운영 및 법적 요구사항에 따라 변경될 수 있으며,
-중요한 변경 사항은 이 페이지를 통해 고지해요."""
-    )
-
-    st.caption(
-        f"""마지막 업데이트: {datetime.date.today().isoformat()}"""
-    )
-
-    footer()
-
-
-# =========================================
-# 라우팅
-# =========================================
-
-page = st.sidebar.radio(
-    "페이지 이동",
-    (
-        "홈 / Home",
-        "상담 챗봇 (미리보기)",
-        "서비스 소개 / About",
-        "문의 / Contact",
-        "개인정보 처리방침 / Privacy",
-        "이용 약관 / Terms",
-    ),
-    index=0,
-    help="EOERWAY AI Therapy 는 당신 마음을 조용히 받아주고 지켜주는 감정 케어 AI 친구예요.",
-)
-
-if page == "홈 / Home":
-    render_home()
-
-elif page == "상담 챗봇 (미리보기)":
-    render_chatbot()
-
-elif page == "서비스 소개 / About":
-    render_about()
-
-elif page == "문의 / Contact":
-    render_contact()
-
-elif page == "개인정보 처리방침 / Privacy":
-    render_privacy()
-
-elif page == "이용 약관 / Terms":
-    render_terms()
-
-else:
-    render_home()
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EOERWAY AI Therapy | 감정 케어 AI 친구 - 마음이 지칠 때, 따뜻한 대화와 위로를 전하는 정서 지원 서비스">
+  <title>EOERWAY AI Therapy | 감정 케어 AI 친구</title>
+
+  <!-- ✅ Google AdSense (심사용 위치) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5846666879010880"
+          crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      background: linear-gradient(180deg, #f9fbff, #fff);
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+    }
+    header {
+      background: #4b6cff;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      color: #1a1a33;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .button-box {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    a.button {
+      background: #4b6cff;
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(75, 108, 255, 0.2);
+      transition: 0.25s ease;
+    }
+    a.button:hover {
+      background: #364fd4;
+    }
+    .ads {
+      border: 2px dashed #ccd2ff;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      background: #f9faff;
+      border-radius: 10px;
+      color: #3b4db7;
+    }
+    footer {
+      background: #f0f2f8;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    footer a {
+      color: #4b6cff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>EOERWAY AI Therapy 💙</h1>
+  <p>감정 케어 AI 친구 — 당신의 마음을 따뜻하게 지켜주는 AI 위로 서비스</p>
+</header>
+
+<div class="container">
+
+  <section>
+    <h2>💬 마음이 너무 지칠 때, 여기에 기대세요</h2>
+    <p>
+      EOERWAY AI Therapy는 혼자 감당하기 힘든 순간, 당신의 감정을 따뜻하게 들어주는 AI 기반 정서 지원 서비스입니다.  
+      이 서비스는 의료 진단이나 상담을 대신하지 않으며, 그보다 “나 힘들어요”라는 마음을 가장 먼저 이해해주는 곳이 되고자 합니다.
+    </p>
+    <p>
+      사람은 누구나 버티기 어려운 순간이 있습니다.  
+      EOERWAY는 그 순간 당신이 잠시 숨을 고를 수 있도록 도와주는 ‘감정 휴식 공간’을 제공합니다.  
+      비난하지 않고, 비교하지 않고, 단지 당신의 이야기를 있는 그대로 들어줍니다.
+    </p>
+  </section>
+
+  <div class="ads">
+    <p>📢 여기는 광고가 노출될 영역입니다.<br>
+       (Google AdSense 심사용 예시 블록)</p>
+  </div>
+
+  <section>
+    <h2>🚀 EOERWAY의 목표</h2>
+    <p>
+      우리는 단순한 챗봇이 아니라, 마음의 응급 처치 공간이 되고자 합니다.  
+      눈물이 터질 듯한 순간에도, 조용히 글로 털어놓을 수 있는 공간.  
+      EOERWAY는 그런 안전한 ‘디지털 마음상담 공간’을 만들어갑니다.
+    </p>
+    <p>
+      또, AI 기술이 사람을 대체하는 것이 아니라 보듬을 수 있다는 믿음으로,  
+      따뜻한 언어와 과학적 안정 루틴을 결합해 감정 회복을 돕습니다.
+    </p>
+
+    <div class="button-box">
+      <a href="https://eoerway.streamlit.app" target="_blank" class="button">💬 AI 상담하러 가기</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>💡 서비스 구성</h2>
+    <p>EOERWAY는 다음과 같은 기능과 페이지로 구성됩니다:</p>
+    <ul>
+      <li>홈(Home) — 감정 케어 소개 및 마음 안정 가이드</li>
+      <li>AI 상담(챗봇) — 실제 대화를 나누며 감정을 정리할 수 있는 공간</li>
+      <li>About — EOERWAY의 철학과 시작 이야기</li>
+      <li>Contact — 문의 / 피드백</li>
+      <li>Privacy — 개인정보 보호정책</li>
+      <li>Terms — 이용약관 및 법적 안내</li>
+    </ul>
+  </section>
+
+  <div class="ads">
+    <p>📢 중간 광고 영역 (AdSense 삽입 가능)</p>
+  </div>
+
+  <section>
+    <h2>🧭 개인정보 처리방침</h2>
+    <p>
+      EOERWAY는 이용자의 사적인 감정과 어려움을 가장 중요하게 생각합니다.  
+      수집되는 데이터는 익명화되어 감정 패턴 분석 및 품질 개선에만 사용됩니다.  
+      실명, 위치 정보, 연락처 등 개인 신원을 식별할 수 있는 정보는 수집하지 않습니다.
+    </p>
+    <p>
+      모든 대화 내용은 사용자의 동의 없이 외부로 공유되지 않습니다.  
+      단, 법적 의무나 생명 위협 상황 발생 시에는 관계기관에 협조할 수 있습니다.
+    </p>
+  </section>
+
+  <section>
+    <h2>📜 이용약관 요약</h2>
+    <p>
+      EOERWAY는 정서적 지지와 자기돌봄 가이드를 제공하기 위한 감정 케어 서비스입니다.  
+      의료 진단이나 전문상담을 대신하지 않으며, 응급 개입이 필요한 경우 반드시 실제 상담기관을 이용해야 합니다.
+    </p>
+    <p>
+      서비스 이용자는 비난, 혐오, 폭력적 언어를 사용하지 않아야 하며,  
+      악용 시 서비스 제한이 발생할 수 있습니다.
+    </p>
+  </section>
+
+  <div class="ads">
+    <p>📢 하단 광고 영역 (AdSense 노출 위치)</p>
+  </div>
+
+  <section>
+    <h2>📧 문의하기</h2>
+    <p>서비스 관련 문의는 아래 이메일로 보내주세요.</p>
+    <p><strong>이메일:</strong> eorway.help@gmail.com</p>
+  </section>
+
+  <section>
+    <h2>🌱 EOERWAY의 약속</h2>
+    <p>
+      EOERWAY는 사용자의 감정 데이터를 상업적으로 판매하지 않습니다.  
+      AI가 감정을 판단하지 않고, 사람의 언어로 위로를 전합니다.  
+      우리는 기술이 따뜻할 수 있다는 사실을 증명하고자 합니다.
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 EOERWAY AI Therapy. All rights reserved. | Version v3.2-ads-ready</p>
+  <p><a href="#top">맨 위로 가기 ↑</a></p>
+</footer>
+
+</body>
+</html>
