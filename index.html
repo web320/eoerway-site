@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 SERVICE_NAME = "EOERWAY AI Therapy"
-SERVICE_EMAIL = "eorway.help@gmail.com"  # 실제 받을 수 있는 이메일로 바꿔줘
+SERVICE_EMAIL = "eorway.help@gmail.com"  # 실제 이메일로 바꿔줘도 돼
 START_YEAR = 2025
 APP_VERSION = "v2.9-review"
 
@@ -229,7 +229,7 @@ def inject_style():
 
 
 # =========================
-# 공용 UI 조각
+# 공용 컴포넌트
 # =========================
 def crisis_box():
     st.markdown(
@@ -253,6 +253,7 @@ def ad_block_placeholder(slot_name="Ad Slot"):
             <div>여기는 광고가 표시될 수 있는 영역입니다.</div>
             <!--
             애드센스 예시 (심사용 자리 준비됨)
+
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID"
                     crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
@@ -293,15 +294,14 @@ def footer():
 
 
 # =========================
-# 개별 페이지 렌더 함수
+# 렌더 함수들
 # =========================
-
 def render_home():
     st.markdown('<div class="main-container" id="home">', unsafe_allow_html=True)
 
     crisis_box()
 
-    # Hero
+    # HERO
     st.markdown(
         """
         <div class="hero-box">
@@ -327,7 +327,7 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    # Chat preview
+    # 대화 미리보기
     st.markdown(
         """
         <div id="chat" class="section-card">
@@ -363,7 +363,7 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    # Helpful resources cards
+    # 카드형 리소스 목록
     st.markdown(
         """
         <div class="section-card">
@@ -416,7 +416,7 @@ def render_home():
 
     ad_block_placeholder("홈 화면 중간 광고 영역 예시")
 
-    # short about teaser so reviewer sees we're 'real'
+    # 서비스 소개 미리보기
     st.markdown(
         f"""
         <div class="section-card" id="about">
@@ -447,6 +447,7 @@ def render_home():
 
 def render_panic():
     st.markdown('<div class="main-container" id="panic">', unsafe_allow_html=True)
+
     crisis_box()
 
     st.markdown(
@@ -457,7 +458,7 @@ def render_panic():
             지금 당장 60초 안에 할 수 있는 진정 루틴</h1>
 
             <p>
-            지금 이 글을 보고 있다는 것 자체가 이미 큰 용기예요.  
+            지금 이 글을 보고 있다는 것 자체가 이미 큰 용기예요.<br/>
             "나 너무 무너질 것 같아"라는 신호를 스스로 알아차렸다는 건,
             나를 지키고 싶은 마음이 아직 안쪽에 살아있다는 뜻이거든요.
             우선 그 마음부터 살짝 안아줄게요. 정말 잘했어요.
@@ -471,7 +472,7 @@ def render_panic():
                 몸의 과민 반응을 천천히 낮추면 마음도 같이 내려와요.
             </div>
 
-            <h2>1단계. 바닥/의자/손에 닿아있는 실제 감각 느끼기 (10~15초)</h2>
+            <h2>1단계. 몸이 닿은 감각 느끼기 (10~15초)</h2>
             <p>
             발바닥 아래 바닥 느낌, 엉덩이 밑 의자, 손바닥이 닿은 표면의 온도를
             그냥 "여기 있네" 하고 알아차리기만 해요.<br/>
@@ -481,23 +482,23 @@ def render_panic():
             <h2>2단계. 4-2-6 호흡 (약 30초)</h2>
             <p>
             코로 1...2...3...4 들이마셔요.<br/>
-            1...2 동안 아주 살짝 머금고,<br/>
+            1...2 동안 살짝 머금고,<br/>
             입으로 1...2...3...4...5...6 천천히 내쉬어요.<br/><br/>
             숨이 얕아도 괜찮아요. 중요한 건 "천천히"예요.
             </p>
 
             <h2>3단계. 시야 넓히기</h2>
             <p>
-            화면/바닥 한 점만 응시하지 말고
-            고개를 살짝 들어서 방 전체를 천천히 훑어봐요.<br/>
-            천장, 벽, 문, 바닥, 내 발...  
-            "나는 지금 안전한 공간 안에 있다"를 눈으로 다시 인식시키는 거예요.
+            휴대폰 화면 같은 한 점만 뚫어지게 보지 말고,
+            고개를 살짝 들어서 방 전체를 천천히 바라봐요.<br/>
+            천장, 벽, 문, 바닥, 내 발…<br/>
+            "나는 지금 안전한 공간 안에 있어"라는 사실을 눈으로 다시 확인시키는 거예요.
             </p>
 
             <div class="article-tip-box">
                 <strong>중요해요:</strong><br/>
                 이건 억지 긍정이 아니고,
-                "지금 이 순간은 안전하다"라는 <u>사실</u>을 뇌에 알려주는 과정이에요.
+                "지금 이 순간은 안전하다"라는 사실을 조용히 알려주는 과정이에요.
             </div>
 
             <h2>4단계. 나 자신에게 부드럽게 말하기</h2>
@@ -509,7 +510,7 @@ def render_panic():
             이건 약함이 아니라 회복력(resilience)이에요.
             </p>
 
-            <h2>5단계. '나는 지금 잘 버티고 있다' 인정해주기</h2>
+            <h2>5단계. '나는 지금 잘 버티고 있다' 인정하기</h2>
             <p>
             방금 1분은 그냥 숨 쉰 시간이 아니에요.  
             <strong>내가 나를 지켜낸 순간</strong>이에요.<br/>
@@ -539,6 +540,7 @@ def render_panic():
 
 def render_money():
     st.markdown('<div class="main-container" id="money">', unsafe_allow_html=True)
+
     crisis_box()
 
     st.markdown(
@@ -642,6 +644,7 @@ def render_money():
 
 def render_burnout():
     st.markdown('<div class="main-container" id="burnout">', unsafe_allow_html=True)
+
     crisis_box()
 
     st.markdown(
@@ -652,9 +655,9 @@ def render_burnout():
             오늘 하루만 버티는 초단위 안전 루틴</h1>
 
             <p>
-            이건 게으름이 아니에요.  
+            이건 게으름이 아니에요.<br/>
             몸과 마음이 과열 → 방전 → 과열 → 방전 반복하다가
-            아예 전원 차단 모드로 들어간 거에 가까워요.<br/>
+            아예 전원 차단 모드로 들어간 거에 가까워요.<br/><br/>
             그래서 "왜 이것도 못 해?"라고 스스로를 혼내면
             더 깊은 무력감만 남아요.
             </p>
@@ -677,12 +680,11 @@ def render_burnout():
 
             <div class="article-tip-box">
                 <strong>작은 한 입이면 충분해요:</strong><br/>
-                제대로 된 식사 아니어도 괜찮아요.<br/>
                 바나나 한 입, 따뜻한 물 한 모금도
                 몸에는 실제로 의미가 있어요.
             </div>
 
-            <h2>3. 완전 차단 말고 '아주 작은 연결'만 유지해요</h2>
+            <h2>3. 완전 차단 대신 '아주 작은 연결' 유지</h2>
             <p>
             완전 고립은 마음을 더 깊게 가라앉힐 수 있어요.<br/>
             대신 이렇게만 해볼 수 있어요:<br/><br/>
@@ -695,7 +697,7 @@ def render_burnout():
             <h2>4. 잠이 안 와도 그냥 누워있기만 해도 돼요</h2>
             <p>
             "잠 안 자면 내일 망해"라는 압박이 오히려 잠을 더 밀어내요.<br/>
-            잠드는 건 우리가 통제 못 할 때가 많아요.<br/>
+            우리는 잠드는 건 직접 통제 못 할 때가 많아요.<br/>
             대신 "눈 감고 조용히 누워있는 시간"은 통제할 수 있어요.<br/><br/>
             누워만 있어도 몸은 회복 모드로 조금씩 전환돼요.
             </p>
@@ -977,7 +979,7 @@ def render_terms():
 
 
 # =========================
-# 페이지 선택 (사이드바)
+# 페이지 선택 UI
 # =========================
 inject_style()
 
