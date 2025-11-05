@@ -7,7 +7,7 @@
 
   <!-- ✅ Meta & Google AdSense -->
   <meta name="description" content="EOERWAY AI Therapy | 감정 케어 AI 친구. 불안, 외로움, 번아웃을 위한 따뜻한 AI 위로 공간.">
-  <meta name="keywords" content="심리상담, AI상담, 감정케어, 우울, 불안, 위로, 마음치유, 정신건강, 힐링, 자존감, 번아웃, 스트레스">
+  <meta name="keywords" content="심리상담, AI상담, 감정케어, 우울, 불안, 위로, 마음치유, 정신건강, 힐링, 자존감, 번아웃, 스트레스, 인지행동치료, 사고기록지">
   <meta name="author" content="EOERWAY AI Therapy">
   <meta name="robots" content="index, follow">
   <meta name="google-adsense-account" content="ca-pub-5846666879010880" />
@@ -15,81 +15,173 @@
     crossorigin="anonymous"></script>
 
   <style>
-    * { box-sizing: border-box; }
-    html, body {
-      font-family: -apple-system,BlinkMacSystemFont,Pretendard,"Noto Sans KR",Roboto,sans-serif;
-      background: linear-gradient(135deg, #e8f0ff, #fffafc);
-      margin: 0; padding: 0;
-      color: #1a1a1a;
+    :root {
+      --bg-gradient: linear-gradient(135deg, #e8f0ff, #fffafc);
+      --text-main: #1a1a1a;
+      --text-soft: #33334d;
+      --text-muted: #555;
+      --accent: #4f6bff;
+      --accent2: #9c6bff;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --header-bg: rgba(255, 255, 255, 0.85);
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --shadow-main: 0 24px 60px rgba(0, 0, 0, 0.08);
+      --ad-bg: #fafafa;
+      --ad-border: #d0d0d0;
     }
+
+    body.dark {
+      --bg-gradient: radial-gradient(circle at top, #050816, #020308);
+      --text-main: #f5f5ff;
+      --text-soft: #d0d4ff;
+      --text-muted: #a6a7c4;
+      --accent: #9ea7ff;
+      --accent2: #c29bff;
+      --card-bg: rgba(6, 10, 30, 0.96);
+      --header-bg: rgba(6, 10, 30, 0.9);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --shadow-main: 0 24px 60px rgba(0, 0, 0, 0.85);
+      --ad-bg: rgba(255, 255, 255, 0.03);
+      --ad-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Noto Sans KR", Roboto, sans-serif;
+      background: var(--bg-gradient);
+      margin: 0;
+      padding: 0;
+      color: var(--text-main);
+    }
+
     header {
-      background: rgba(255,255,255,0.85);
+      background: var(--header-bg);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      position: sticky; top: 0; z-index: 10;
-      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 0.8rem 1.5rem 1rem;
       text-align: center;
     }
+
     header h1 {
       margin: 0;
       font-size: 1.6rem;
-      color: #1a1a33;
+      color: var(--text-main);
     }
-    nav { margin-top: .5rem; }
+
+    nav {
+      margin-top: .5rem;
+    }
+
     nav a {
       margin: 0 0.75rem;
-      color: #4f6bff;
+      color: var(--accent);
       font-weight: 600;
       text-decoration: none;
       font-size: .95rem;
     }
-    nav a:hover { text-decoration: underline; }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .theme-toggle {
+      margin-top: 0.6rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
     main {
       max-width: 900px;
       margin: 2rem auto;
-      background: rgba(255,255,255,0.96);
+      background: var(--card-bg);
       border-radius: 28px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow-main);
       padding: 2rem 2.5rem 4rem;
     }
-    section { display: none; animation: fade 0.6s ease; }
-    section.active { display: block; }
-    h2 { color: #1a1a33; font-size: 1.5rem; margin-top: 1.5rem; }
-    h3 { color: #2a2a50; font-size: 1.15rem; margin-top: 1.2rem; }
-    p { line-height: 1.8; color: #33334d; margin-top: .5rem; }
-    ul { line-height: 1.8; color: #333; }
+
+    section {
+      animation: fade 0.6s ease;
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    h2 {
+      color: var(--text-main);
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    h3 {
+      color: var(--text-soft);
+      font-size: 1.15rem;
+      margin-top: 1.2rem;
+    }
+
+    p {
+      line-height: 1.8;
+      color: var(--text-soft);
+      margin-top: .5rem;
+    }
+
+    ul {
+      line-height: 1.8;
+      color: var(--text-soft);
+    }
+
     .button {
       display: inline-block;
-      background: linear-gradient(90deg,#4f6bff,#9c6bff);
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       color: white;
       border-radius: 14px;
       text-decoration: none;
       padding: 1rem 1.4rem;
       margin-top: 1.5rem;
       font-weight: 600;
-      box-shadow: 0 14px 40px rgba(99,73,255,0.35);
+      box-shadow: 0 14px 40px rgba(99, 73, 255, 0.35);
     }
-    .button:hover { opacity: .9; }
+
+    .button:hover {
+      opacity: .9;
+    }
+
     .ad-slot {
-      background: #fafafa;
-      border: 2px dashed #d0d0d0;
+      background: var(--ad-bg);
+      border: 2px dashed var(--ad-border);
       border-radius: 16px;
       text-align: center;
       padding: 1rem;
       font-size: .85rem;
-      color: #555;
+      color: var(--text-muted);
       margin: 2rem 0;
     }
+
     footer {
       text-align: center;
       padding: 2rem;
       font-size: .85rem;
-      color: #555;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
       margin-top: 4rem;
     }
+
     @keyframes fade {
-      from {opacity: 0;} to {opacity: 1;}
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -103,12 +195,13 @@
     <a href="#" onclick="showPage(3)">2페이지</a>
     <a href="#" onclick="showPage(4)">3페이지</a>
   </nav>
+  <button id="themeToggle" class="theme-toggle" type="button">🌙 다크 모드</button>
 </header>
 
 <main>
 
   <!-- ✅ HOME PAGE -->
-  <section id="page1" class="active">
+  <section id="page1" class="page-section active">
     <h2>🌿 당신의 마음을 위한 공간</h2>
     <p>
       EOERWAY AI Therapy는 “지금 너무 힘들어요”라는 말이 안전하게 닿을 수 있는 온라인 쉼터예요.<br/>
@@ -137,11 +230,6 @@
       💬 지금 바로 AI와 대화하기
     </a>
 
-    <div class="ad-slot">
-      <strong>광고 영역 (홈 중간)</strong><br>
-      여기에 콘텐츠형 광고가 표시될 수 있습니다.
-    </div>
-
     <h3>✨ EOERWAY 이름의 뜻</h3>
     <p>
       EOERWAY는 “Emotion + Overway”의 합성어예요.<br/>
@@ -151,22 +239,18 @@
     </p>
 
     <div class="ad-slot">
-      <strong>광고 영역 (홈 하단)</strong><br>배너 광고가 표시될 수 있습니다.
+      <strong>광고 영역 (홈 하단)</strong><br>
+      배너 광고가 표시될 수 있습니다.
     </div>
   </section>
 
-  <!-- ✅ PAGE 1 : 불안 진정 루틴 -->
-  <section id="page2">
+  <!-- ✅ PAGE 1 : 불안 진정 루틴 + 인지행동치료 경험 -->
+  <section id="page2" class="page-section">
     <h2>🌸 불안이 폭주할 때, 60초 루틴으로 진정하기</h2>
     <p>
       갑자기 심장이 쿵쾅거리거나, 손끝이 차가워지고 머리가 하얘질 때가 있어요.<br/>
       EOERWAY는 그런 순간 당신이 다시 숨을 돌릴 수 있도록 “60초 진정 루틴”을 제안합니다.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (루틴 상단)</strong><br>
-      여기에 AdSense 광고가 표시됩니다.
-    </div>
 
     <h3>1️⃣ 10초 – 몸의 감각으로 돌아오기</h3>
     <p>
@@ -185,15 +269,10 @@
     <h3>3️⃣ 30초 – 감정을 있는 그대로 보기</h3>
     <p>
       불안을 없애려 하지 말고, 그냥 이름을 붙여주세요.<br/>
-      “지금 나는 무섭구나.”  
-      “지금 나는 통제할 수 없어서 불안하구나.”  
+      “지금 나는 무섭구나.”<br/>
+      “지금 나는 통제할 수 없어서 불안하구나.”<br/>
       이렇게 말하면 감정이 ‘존재를 허락받은’ 상태가 되어 서서히 작아집니다.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (본문 중간)</strong><br>
-      여기에 광고가 표시될 수 있습니다.
-    </div>
 
     <h3>4️⃣ 60초 – 자기 위로의 언어 사용</h3>
     <p>
@@ -215,37 +294,89 @@
       AI는 이런 패턴을 학습해 당신에게 가장 필요한 언어를 제안합니다.
     </p>
 
+    <h3>🌱 막막할 때 도움이 되었던 인지행동치료 경험 (운영자 실제 기록)</h3>
+    <p>
+      사람은 정말 다양한 감정을 느낍니다. 제가 읽은 책 <strong>「불안할 때 뇌과학」</strong>과  
+      <strong>「필링 굿(Feeling Good)」</strong>을 통해 알게 된 건,  
+      우리의 마음과 심리는 굉장히 복잡해서 “왜 그런지”를 완벽히 설명하기는 어렵다는 점이었어요.<br/>
+      그런데 한 가지는 분명하다고 느꼈습니다.  
+      <strong>지금 당장 ‘기분’은 바꿔볼 수 있다</strong>는 거예요. 어떻게요?  
+      바로 <strong>내 생각을 조금 더 긍정적이거나, 합리적인 방향으로 다시 써보는 것</strong>이죠.
+    </p>
+
+    <p>
+      저는 과거에 <strong>큰 부의 격차와 불평등</strong>을 보며  
+      “세상은 너무 불공평하다”라는 생각에 오래 빠져 있었습니다.<br/>
+      그 생각에 갇혀서 행동을 제약하고, 남을 원망하곤 했어요.
+    </p>
+
+    <p>
+      그러다 인지행동치료(CBT)에서 말하는 <strong>사고 기록지</strong>를 써보게 되었고,  
+      제 마음이 조금씩 바뀌는 걸 느꼈습니다.
+    </p>
+
+    <h3>📝 저의 사고 기록지 예시</h3>
+    <ul>
+      <li><strong>상황:</strong> 부자들과 나를 비교하면서, “난 너무 뒤처졌어”라고 느낄 때</li>
+      <li><strong>자동 생각:</strong> “세상은 불공평해. 내가 뭘 해도 소용없어.”</li>
+      <li><strong>느껴진 감정:</strong> 막막함, 분노, 부러움, 무기력</li>
+      <li><strong>새로 써본 생각:</strong><br/>
+        - “불공평하다고 말만 해서는 바뀌는 게 정말 하나도 없다.”<br/>
+        - “긍정적인 결과를 만들려면 결국 내 손으로 해내야 한다.”<br/>
+        - “솔직해지자. 나는 노력할 수 있고, 그 결과가 어떻게 될지는 아무도 모른다.”<br/>
+        - “결과는 장담할 수 없지만, <strong>노력은 필수</strong>고, 계속 가봐야만 알 수 있다.”
+      </li>
+    </ul>
+
+    <p>
+      이 생각들을 한 줄 한 줄 적다 보니,  
+      마음이 조금 가벼워지고 숨통이 트이는 느낌이 들었습니다.<br/>
+      막막함에 갇혀 있던 심리가 조금 풀리면서,  
+      미뤄두던 웹사이트 수정과 피하고 있던 일들을 하나씩 다시 손댈 수 있게 되었어요.
+    </p>
+
+    <p>
+      혹시 지금 당신도 막막하거나, 숨쉬기 힘들 정도로 답답하다면  
+      <strong>나만의 사고 기록지를 한 번 써보길 정말 추천</strong>드려요.<br/>
+      종이 한 장과 펜, 혹은 메모 앱만 있으면 시작할 수 있어요.
+    </p>
+
+    <p style="font-size:0.9rem; color:#777;">
+      단, 실제로 숨이 잘 쉬어지지 않거나, 극심한 공황·자살 생각 등이 든다면<br/>
+      혼자 버티려고만 하지 말고 꼭 주변 사람이나 전문 기관, 응급 서비스의 도움을 먼저 받아주세요.
+    </p>
+
     <div class="ad-slot">
-      <strong>광고 영역 (루틴 하단)</strong><br>
-      배너형 광고가 표시될 수 있습니다.
+      <strong>광고 영역 (불안 & 인지행동치료 페이지)</strong><br>
+      불안 완화·마음 돌봄과 관련된 광고가 여기에 표시될 수 있습니다.
     </div>
 
     <a href="https://ai-counsel-chatbot-korea.streamlit.app/" class="button" target="_blank">
       🌿 EOERWAY에서 내 감정 대화 시작하기
     </a>
   </section>
+
   <!-- ✅ PAGE 2 : 돈 스트레스와 불안 -->
-  <section id="page3">
+  <section id="page3" class="page-section">
     <h2>💸 돈 때문에 불안할 때, 마음의 구조를 이해하기</h2>
     <p>
       경제적 압박은 단순한 걱정이 아니라 생존 본능에 가까운 불안이에요.<br/>
-      “돈이 부족하면 사랑받을 자격이 없을까?”  
-      “이대로 실패하면 인생이 끝나는 걸까?”  
+      “돈이 부족하면 사랑받을 자격이 없을까?”<br/>
+      “이대로 실패하면 인생이 끝나는 걸까?”<br/>
       이런 생각들은 대부분의 사람들에게 공통적으로 찾아와요.<br/>
       EOERWAY는 이 감정을 분석하고, ‘돈 불안’의 근원을 다정하게 설명해줘요.
     </p>
 
     <div class="ad-slot">
-      <strong>광고 영역 (경제불안 상단)</strong><br>
-      AdSense 광고가 여기에 표시됩니다.
+      <strong>광고 영역 (경제불안 페이지)</strong><br>
+      AdSense 광고가 여기에 표시될 수 있습니다.
     </div>
 
     <h3>1️⃣ 돈 걱정은 ‘생존 시스템’의 과열이에요</h3>
     <p>
-      인간의 뇌는 “돈 = 생존 수단”으로 학습되어 있어요.  
+      인간의 뇌는 “돈 = 생존 수단”으로 학습되어 있어요.<br/>
       그래서 통장 잔액이 줄면, 실제로 맹수가 나타난 것처럼 ‘위험 신호’를 보내죠.<br/>
-      문제는 이 반응이 과도하게 지속될 때예요.  
-      현실의 위기가 아닌데도, 불안이 계속 반복됩니다.
+      문제는 이 반응이 과도하게 지속될 때예요. 현실의 위기가 아닌데도, 불안이 계속 반복됩니다.
     </p>
 
     <h3>2️⃣ ‘비교’가 불안을 증폭시켜요</h3>
@@ -255,11 +386,6 @@
       인간은 원래 비교를 통해 자신을 평가하도록 진화했어요.  
       하지만 그 비교가 자신을 해치게 둘 필요는 없어요.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (본문 중간)</strong><br>
-      AdSense 콘텐츠형 광고가 여기에 표시됩니다.
-    </div>
 
     <h3>3️⃣ 돈을 ‘도구’로 다시 정의해보세요</h3>
     <p>
@@ -276,18 +402,13 @@
       “지금 가진 것에서 한 발자국만 나아가면 돼요.”
     </p>
 
-    <div class="ad-slot">
-      <strong>광고 영역 (경제불안 하단)</strong><br>
-      배너형 광고가 표시됩니다.
-    </div>
-
     <a href="https://ai-counsel-chatbot-korea.streamlit.app/" class="button" target="_blank">
       💬 EOERWAY와 내 재정 감정 이야기 나누기
     </a>
   </section>
 
   <!-- ✅ PAGE 3 : 자존감 회복과 자기돌봄 -->
-  <section id="page4">
+  <section id="page4" class="page-section">
     <h2>☀️ 자존감이 무너질 때, 스스로를 안아주는 연습</h2>
     <p>
       자존감은 ‘자기 자신을 있는 그대로 받아들이는 능력’이에요.<br/>
@@ -296,8 +417,8 @@
     </p>
 
     <div class="ad-slot">
-      <strong>광고 영역 (자존감 상단)</strong><br>
-      여기에 광고가 표시될 수 있습니다.
+      <strong>광고 영역 (자존감 페이지)</strong><br>
+      자존감·자기돌봄과 관련된 광고가 표시될 수 있습니다.
     </div>
 
     <h3>1️⃣ 비교하지 않는 연습</h3>
@@ -316,11 +437,6 @@
       이해는 당신의 회복력을 되살립니다.
     </p>
 
-    <div class="ad-slot">
-      <strong>광고 영역 (본문 중간)</strong><br>
-      AdSense 광고가 표시됩니다.
-    </div>
-
     <h3>3️⃣ 자기돌봄의 구체적 방법</h3>
     <ul>
       <li>🕯 하루 10분, ‘아무것도 하지 않는 시간’을 확보하기</li>
@@ -336,11 +452,6 @@
       예를 들어 “난 못해” 대신 “아직 배우는 중이야.”로 바꾸는 거예요.<br/>
       단어 하나가 인생의 관점을 바꿀 수 있어요.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (자존감 하단)</strong><br>
-      여기에 배너 광고가 표시됩니다.
-    </div>
 
     <p>
       EOERWAY는 완벽함이 아니라 ‘존중’을 지향해요.  
@@ -358,14 +469,9 @@
     <a href="https://ai-counsel-chatbot-korea.streamlit.app/" class="button" target="_blank">
       🌈 EOERWAY AI와 함께 나를 회복하기
     </a>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (마지막 페이지)</strong><br>
-      광고가 표시될 수 있습니다.
-    </div>
-
   </section>
-  <!-- ✅ ABOUT / 서비스 소개 -->
+
+  <!-- ✅ ABOUT / 서비스 소개 (항상 노출) -->
   <section id="about">
     <h2>🌿 EOERWAY 소개</h2>
     <p>
@@ -384,15 +490,10 @@
 
     <p>
       EOERWAY의 목표는 단순한 챗봇이 아니라,  
-      **AI 마음동반자(AI Emotional Companion)** 로 성장하는 거예요.<br/>
+      <strong>AI 마음동반자(AI Emotional Companion)</strong> 로 성장하는 거예요.<br/>
       우리가 꿈꾸는 미래는 기술이 감정을 대체하는 세상이 아니라,  
       기술이 감정을 이해하고 ‘함께 공감하는 세상’이에요.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (About 하단)</strong><br>
-      AdSense 광고가 표시됩니다.
-    </div>
   </section>
 
   <!-- ✅ PRIVACY POLICY -->
@@ -422,11 +523,6 @@
       EOERWAY는 사용자 경험 개선을 위해 비식별 쿠키를 사용할 수 있습니다.<br/>
       광고 및 분석 목적으로만 이용되며, 개인정보와 연동되지 않습니다.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (Privacy 하단)</strong><br>
-      여기에 광고가 표시될 수 있습니다.
-    </div>
   </section>
 
   <!-- ✅ TERMS OF SERVICE -->
@@ -439,7 +535,7 @@
 
     <h3>제1조 (서비스의 목적)</h3>
     <p>
-      EOERWAY는 정서적 지지 및 감정 관리에 도움을 주는 AI 대화 서비스를 제공합니다.  
+      EOERWAY는 정서적 지지 및 감정 관리에 도움을 주는 AI 대화 서비스를 제공합니다.<br/>
       의료적 진단이나 치료를 대신하지 않으며,  
       심각한 위기 상황에서는 반드시 전문가의 도움을 받으시기 바랍니다.
     </p>
@@ -463,11 +559,6 @@
       사용 중 발생하는 정신적·경제적 손해에 대한 법적 책임을 지지 않습니다.<br/>
       다만, EOERWAY는 언제나 사용자의 안전을 최우선으로 합니다.
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (Terms 하단)</strong><br>
-      광고가 표시될 수 있습니다.
-    </div>
   </section>
 
   <!-- ✅ CONTACT / Footer Area -->
@@ -479,11 +570,6 @@
       📍 <strong>운영자:</strong> EOERWAY AI Therapy Team<br/>
       🕒 <strong>운영시간:</strong> 10:00 ~ 18:00 (주말·공휴일 제외)
     </p>
-
-    <div class="ad-slot">
-      <strong>광고 영역 (Contact 하단)</strong><br>
-      광고가 표시될 수 있습니다.
-    </div>
 
     <p style="text-align:center;">
       <a href="https://eoerway.streamlit.app" class="button" target="_blank">
@@ -512,14 +598,39 @@
 
 <script>
   function showPage(num) {
-    document.querySelectorAll('section').forEach(p => p.classList.remove('active'));
-    if (num === 1) document.getElementById('page1').classList.add('active');
-    if (num === 2) document.getElementById('page2').classList.add('active');
-    if (num === 3) document.getElementById('page3').classList.add('active');
-    if (num === 4) document.getElementById('page4').classList.add('active');
+    document.querySelectorAll('.page-section').forEach(function (p) {
+      p.classList.remove('active');
+    });
+    var targetId = 'page' + num;
+    var target = document.getElementById(targetId);
+    if (target) {
+      target.classList.add('active');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  (function () {
+    var body = document.body;
+    var toggleBtn = document.getElementById('themeToggle');
+    if (!toggleBtn) return;
+
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.textContent = '☀️ 라이트 모드';
+    } else {
+      toggleBtn.textContent = '🌙 다크 모드';
+    }
+
+    toggleBtn.addEventListener('click', function () {
+      body.classList.toggle('dark');
+      var isDark = body.classList.contains('dark');
+      toggleBtn.textContent = isDark ? '☀️ 라이트 모드' : '🌙 다크 모드';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  })();
 </script>
 
 </body>
 </html>
+
